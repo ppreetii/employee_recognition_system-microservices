@@ -8,6 +8,7 @@ import { config } from "../configs/config";
 interface UserPayload {
   id: string;
   email: string;
+  role: string
   empId?: string;
 }
 

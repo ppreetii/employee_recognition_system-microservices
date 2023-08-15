@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Roles } from "@reward-sys/common";
 
 import { Password } from "../utils/password";
 
@@ -6,6 +7,7 @@ import { Password } from "../utils/password";
 interface AuthAttrs {
   email: string;
   password: string;
+  role: Roles
 }
 
 //interface describing properties of Auth Model
@@ -17,6 +19,7 @@ interface AuthModel extends mongoose.Model<AuthDoc> {
 interface AuthDoc extends mongoose.Document {
   email: string;
   password: string;
+  role: Roles;
   employeeId: string;
   is_active: Number;
 }
@@ -27,6 +30,10 @@ const authSchema = new mongoose.Schema({
     required: true,
   },
   password: {
+    type: String,
+    required: true,
+  },
+  role: {
     type: String,
     required: true,
   },

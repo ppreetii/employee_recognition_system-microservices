@@ -1,13 +1,16 @@
 import mongoose from "mongoose";
 
 //interface describing properties needed to create an employee
-interface EmployeeAttrs {
-  id: string;
+export interface EmployeeAttrs {
   name: string;
   contact: string;
   personal_email: string;
   birthDate: Date;
   address: string;
+  email: string;
+  projectId?: string;
+  departmentId?: string;
+  designation: string;
 }
 
 //interface describing properties of Employee Model
@@ -22,7 +25,6 @@ interface EmployeeDoc extends mongoose.Document {
   personal_email: string;
   birthDate: Date;
   address: string;
-  empId: string;
   email: string;
   projectId: string;
   departmentId: string;
@@ -31,14 +33,10 @@ interface EmployeeDoc extends mongoose.Document {
   employee_of_the_week: Number;
   employee_of_the_month: Number;
   bonusStars: Number;
-  is_approved: Number;
 }
 
 const employeeSchema = new mongoose.Schema(
   {
-    empId: {
-      type: String,
-    },
     name: {
       type: String,
       required: true,
@@ -82,15 +80,12 @@ const employeeSchema = new mongoose.Schema(
     },
     bonusStars: {
       type: Number,
+      default: 10
     },
     is_active: {
       type: Number,
       default: 1,
-    },
-    is_approved: {
-      type: Number,
-      default: 0,
-    },
+    }
   },
   {
     toJSON: {

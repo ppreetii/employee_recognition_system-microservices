@@ -1,11 +1,10 @@
 import jwt from "jsonwebtoken";
-import { BadRequestError , NotAuthorizedError, Active} from "@reward-sys/common";
+import { BadRequestError , NotAuthorizedError, Active, Roles} from "@reward-sys/common";
 
 import { Auth } from "../models/auth";
 import { Password } from "../utils/password";
-import config from "../configs/config";
 
-const signup = async (email: string, password: string) => {
+const signup = async (email: string, password: string, role: Roles) => {
   try {
      const existingUser = await Auth.findOne({
        email,
@@ -14,7 +13,7 @@ const signup = async (email: string, password: string) => {
        throw new BadRequestError("Email already exists");
      }
 
-     const employee = Auth.build({ email, password });
+     const employee = Auth.build({ email, password, role });
      await employee.save();
    
      return {
@@ -45,16 +44,19 @@ const login = async (email: string, password: string) => {
     const userJwt = jwt.sign(
       {
         id: existingUser.id,
-        empId: existingUser.employeeId,
         email: existingUser.email,
+        role: existingUser.role,
       },
-      process.env.JWT_KEY!
+      process.env.JWT_KEY!,
+      {
+        expiresIn: "1h",
+      }
     );
 
 
     return {
-      jwt: userJwt,
-      email: existingUser.email,
+      token: userJwt,
+      email: existingUser.email
     };
   } catch (error) {
     throw error;

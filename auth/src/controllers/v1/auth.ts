@@ -4,8 +4,8 @@ import authService from "../../services/auth";
 
 const signup = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, password } = req.body;
-    const data = await authService.signup(email, password);
+    const { email, password, role } = req.body;
+    const data = await authService.signup(email, password,role);
     res.status(201).json({ email: data.email });
   } catch (error) {
     next(error);
@@ -18,7 +18,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const data = await authService.login(email, password);
     
     req.session = {
-      jwt: data.jwt,
+      jwt: data.token,
     };
 
     res.status(200).json(data);
