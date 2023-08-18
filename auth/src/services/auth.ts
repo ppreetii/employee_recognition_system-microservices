@@ -1,8 +1,11 @@
 import jwt from "jsonwebtoken";
-import { BadRequestError , NotAuthorizedError, Active, Roles} from "@reward-sys/common";
+import mongoose from "mongoose";
+import { BadRequestError , NotAuthorizedError, Roles} from "@reward-sys/common";
 
 import { Auth } from "../models/auth";
 import { Password } from "../utils/password";
+import { NewEmployeePublisher } from "../events/publishers/new-employee-publisher";
+import { rabbitmq } from "../rabbitmq";
 
 const signup = async (email: string, password: string, role: Roles) => {
   try {
@@ -13,8 +16,14 @@ const signup = async (email: string, password: string, role: Roles) => {
        throw new BadRequestError("Email already exists");
      }
 
-     const employee = Auth.build({ email, password, role });
+     const employeeId = new mongoose.Types.ObjectId();
+     const employee = Auth.build({ email, password, role , employeeId});
      await employee.save();
+
+     new NewEmployeePublisher(rabbitmq.client).publish({
+      email: employee.email,
+      employeeId : employee.employeeId
+     })
    
      return {
        email: employee.email,
@@ -29,7 +38,7 @@ const login = async (email: string, password: string) => {
   try {
     const existingUser = await Auth.findOne({
       email,
-      is_active: { $in: [Active.New, Active.Employee] }
+      is_active: 1
     });
 
     if (!existingUser) {

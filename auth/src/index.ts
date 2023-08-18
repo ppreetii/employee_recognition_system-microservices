@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 import { app } from "./app";
 import config from "./configs/config";
+import { rabbitmq } from "./rabbitmq";
 
 const checkEnvironmentVars = () => {
    if (!config.mongoUrl) {
@@ -15,6 +16,16 @@ const checkEnvironmentVars = () => {
 
 const startServer = async () =>{
     checkEnvironmentVars();
+    await rabbitmq.connect(config.rabbitmqUrl);
+    console.log("Connected to RabbitMQ");
+    rabbitmq.client.on("close", () => {
+      console.log("RabbitMq Connection Closed.");
+      process.exit(1);
+    });
+
+    process.on("SIGINT", () => rabbitmq.client.close());
+    process.on("SIGTERM", () => rabbitmq.client.close());
+
     await mongoose.connect(config.mongoUrl!);
     console.log("Connected to Database")
     app.listen(config.port, () => {

@@ -4,24 +4,22 @@ import { Employee, EmployeeAttrs } from "../models/employee";
 
 const createEmployee = async (data: EmployeeAttrs) => {
   try {
-    const exists = await Employee.findOne({
+    const employee = await Employee.findOne({
       email: data.email,
     });
-    if (exists) {
-      throw new BadRequestError("Email already exists");
+    if (!employee) {
+      throw new BadRequestError("Please Create Employee Account First");
     }
 
-    const employee = Employee.build({
-      name: data.name,
-      contact: data.contact,
-      personal_email: data.personal_email,
-      birthDate: data.birthDate,
-      address: data.address,
-      email: data.email,
-      projectId: data.projectId,
-      departmentId: data.departmentId,
-      designation: data.designation,
-    });
+    employee.name = data.name;
+    employee.contact = data.contact;
+    employee.personal_email = data.personal_email;
+    employee.birthDate = data.birthDate;
+    employee.address = data.address;
+
+    employee.projectId = data.projectId!;
+    employee.departmentId = data.departmentId!;
+    employee.designation = data.designation;
 
     await employee.save();
 

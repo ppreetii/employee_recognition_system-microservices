@@ -7,7 +7,8 @@ import { Password } from "../utils/password";
 interface AuthAttrs {
   email: string;
   password: string;
-  role: Roles
+  role: Roles;
+  employeeId: mongoose.Types.ObjectId;
 }
 
 //interface describing properties of Auth Model
@@ -20,7 +21,7 @@ interface AuthDoc extends mongoose.Document {
   email: string;
   password: string;
   role: Roles;
-  employeeId: string;
+  employeeId: mongoose.Types.ObjectId;
   is_active: Number;
 }
 
@@ -38,7 +39,7 @@ const authSchema = new mongoose.Schema({
     required: true,
   },
   employeeId: {
-    type: String
+    type: mongoose.Types.ObjectId
   },
   is_active: {
     type: Number,

@@ -1,16 +1,12 @@
 import { Connection, Options, Channel, Message } from "amqplib";
 
-import { EXCHANGE, ExchangeTypes } from "./exhanges/exchange";
-
-interface Event {
-  routingKey: string;
-  queue: string;
-  message: any;
-}
+import { Event } from "../types/event-type";
 
 export abstract class Listener<T extends Event> {
   abstract routingKey: T["routingKey"];
   abstract queue: T["queue"];
+  abstract exchange: T["exchange"];
+  abstract exchangeType: T["exchangeType"];
   abstract onMessage(data: T["message"], channel: Channel, msg: Message): void;
 
   protected rabbitmq: Connection;
@@ -25,13 +21,15 @@ export abstract class Listener<T extends Event> {
   async subscribe(): Promise<void> {
     try {
       const channel = await this.rabbitmq.createChannel();
+
       await channel.assertExchange(
-        EXCHANGE,
-        ExchangeTypes.Direct,
+        this.exchange,
+        this.exchangeType,
         this.assertExchangeOptions
       );
+
       channel.assertQueue(this.queue, this.assertQueueOptions);
-      channel.bindQueue(this.queue, EXCHANGE, this.routingKey);
+      channel.bindQueue(this.queue, this.exchange, this.routingKey);
       await channel.consume(
         this.queue,
         async (data) => {

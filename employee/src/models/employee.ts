@@ -1,11 +1,16 @@
 import mongoose from "mongoose";
 
 //interface describing properties needed to create an employee
+export interface AccountAttrs{
+  id: mongoose.Types.ObjectId;
+  email: string;
+}
+
 export interface EmployeeAttrs {
   name: string;
   contact: string;
   personal_email: string;
-  birthDate: Date;
+  birthDate: string;
   address: string;
   email: string;
   projectId?: string;
@@ -15,7 +20,7 @@ export interface EmployeeAttrs {
 
 //interface describing properties of Employee Model
 interface EmployeeModel extends mongoose.Model<EmployeeDoc> {
-  build(attrs: EmployeeAttrs): EmployeeDoc;
+  build(attrs: AccountAttrs): EmployeeDoc;
 }
 
 //interface describing properties that a Employee document has, one that is returned by Mongo
@@ -23,7 +28,7 @@ interface EmployeeDoc extends mongoose.Document {
   name: string;
   contact: string;
   personal_email: string;
-  birthDate: Date;
+  birthDate: string;
   address: string;
   email: string;
   projectId: string;
@@ -39,26 +44,22 @@ const employeeSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
     },
     contact: {
       type: String,
-      required: true,
     },
     email: {
       type: String,
+      required: true
     },
     personal_email: {
       type: String,
-      required: true,
     },
     birthDate: {
-      type: Date,
-      required: true,
+      type: String,
     },
     address: {
       type: String,
-      required: true,
     },
     projectId: {
       type: String,
@@ -98,7 +99,7 @@ const employeeSchema = new mongoose.Schema(
   }
 );
 
-employeeSchema.statics.build = (attrs: EmployeeAttrs) => {
+employeeSchema.statics.build = (attrs: AccountAttrs) => {
   return new Employee(attrs);
 };
 
