@@ -52,7 +52,7 @@ const login = async (email: string, password: string) => {
 
     const userJwt = jwt.sign(
       {
-        id: existingUser.id,
+        id: existingUser.employeeId,
         email: existingUser.email,
         role: existingUser.role,
       },

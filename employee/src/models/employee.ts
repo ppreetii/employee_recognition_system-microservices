@@ -50,7 +50,7 @@ const employeeSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: true
+      required: true,
     },
     personal_email: {
       type: String,
@@ -72,21 +72,24 @@ const employeeSchema = new mongoose.Schema(
     },
     employee_of_the_day: {
       type: Number,
+      default: 0,
     },
     employee_of_the_week: {
       type: Number,
+      default:0
     },
     employee_of_the_month: {
       type: Number,
+      default: 0
     },
     bonusStars: {
       type: Number,
-      default: 10
+      default: 10,
     },
     is_active: {
       type: Number,
       default: 1,
-    }
+    },
   },
   {
     toJSON: {

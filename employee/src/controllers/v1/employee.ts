@@ -18,6 +18,39 @@ const createEmployee = async (
   }
 };
 
+const getEmployees = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const data = await employeeService.getEmployees();
+    res.json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getEmployeeById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const empId = req.params.empId;
+    const role = req.currentUser?.role!;
+    const loginId = req.currentUser?.id!;
+    const data = await employeeService.getEmployeeById(empId, role, loginId)
+
+    res.json(data);
+  } catch (error) {
+    next(error);
+  }
+}; 
+
+
 export default {
   createEmployee,
+  getEmployees,
+  getEmployeeById
 };
