@@ -8,7 +8,7 @@ import {
 
 import { API } from "../../constants/api";
 import empController from "../../controllers/v1/employee";
-import { createEmployeeSchema } from "../../validation-schema/employee";
+import {createEmployeeSchema, updateEmployeeSchema} from "../../validation-schema/employee";
 
 const router = express.Router();
 
@@ -32,6 +32,14 @@ router.get(
   requireAuth,
   hasPermissions(EmployeeActions.GetEmployeeById),
   empController.getEmployeeById
+);
+
+router.put(
+  `${API.EMP_ID}`,
+  requireAuth,
+  hasPermissions(EmployeeActions.UpdateEmployee),
+  validateRequest(updateEmployeeSchema),
+  empController.updateEmployee
 );
 
 

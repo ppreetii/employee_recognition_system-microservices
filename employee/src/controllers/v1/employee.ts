@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-import { EmployeeAttrs } from "../../models/employee";
+import { EmployeeAttrs, UpdateEmployeeAttrs } from "../../types/employee";
 import employeeService from "../../services/employee";
 
 const createEmployee = async (
@@ -46,11 +46,30 @@ const getEmployeeById = async (
   } catch (error) {
     next(error);
   }
-}; 
+};
 
+const updateEmployee = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const empId = req.params.empId;
+    const role = req.currentUser?.role!;
+    const loginId = req.currentUser?.id!;
+    const data: UpdateEmployeeAttrs = req.body;
+
+    const employee = await employeeService.updateEmployee(empId, role, loginId, data);
+
+    res.json(employee);
+  } catch (error) {
+    next(error);
+  }
+};
 
 export default {
   createEmployee,
   getEmployees,
-  getEmployeeById
+  getEmployeeById,
+  updateEmployee
 };

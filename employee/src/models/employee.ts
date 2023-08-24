@@ -1,44 +1,6 @@
 import mongoose from "mongoose";
 
-//interface describing properties needed to create an employee
-export interface AccountAttrs{
-  id: mongoose.Types.ObjectId;
-  email: string;
-}
-
-export interface EmployeeAttrs {
-  name: string;
-  contact: string;
-  personal_email: string;
-  birthDate: string;
-  address: string;
-  email: string;
-  projectId?: string;
-  departmentId?: string;
-  designation: string;
-}
-
-//interface describing properties of Employee Model
-interface EmployeeModel extends mongoose.Model<EmployeeDoc> {
-  build(attrs: AccountAttrs): EmployeeDoc;
-}
-
-//interface describing properties that a Employee document has, one that is returned by Mongo
-interface EmployeeDoc extends mongoose.Document {
-  name: string;
-  contact: string;
-  personal_email: string;
-  birthDate: string;
-  address: string;
-  email: string;
-  projectId: string;
-  departmentId: string;
-  designation: string;
-  employee_of_the_day: Number;
-  employee_of_the_week: Number;
-  employee_of_the_month: Number;
-  bonusStars: Number;
-}
+import { AccountAttrs , EmployeeDoc, EmployeeModel} from "../types/employee";
 
 const employeeSchema = new mongoose.Schema(
   {
