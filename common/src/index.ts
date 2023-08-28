@@ -25,3 +25,4 @@ export * from "./rabbitmq/routing-keys";
 export * from "./rabbitmq/rabbitmq";
 export * from "./rabbitmq/exhanges/exchange";
 export * from "./rabbitmq/events/employee/create-employee-event";
+export * from "./rabbitmq/events/employee/delete-employee-event";

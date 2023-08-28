@@ -49,9 +49,9 @@
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
 "@reward-sys/common@^1.0.0":
-  "integrity" "sha512-DjsvJsXp8zeRNzm/Yxw7J3C5m+dd0kcVe7krQ9sxPwoQ92UuREQUHljf8FGmL/zAw8RUeZEL0AtePxSouof9ZA=="
-  "resolved" "https://registry.npmjs.org/@reward-sys/common/-/common-1.0.27.tgz"
-  "version" "1.0.27"
+  "integrity" "sha512-ljKeJ3jX407HbU++UfPrr0Q7awUFNrWSEZfbE4WeuI55EqF4LcJFUDANf1nXeLByFPHyFjN3L+D1LOmG1x1hhw=="
+  "resolved" "https://registry.npmjs.org/@reward-sys/common/-/common-1.0.29.tgz"
+  "version" "1.0.29"
   dependencies:
     "@types/amqplib" "^0.10.1"
     "@types/cookie-session" "^2.0.44"

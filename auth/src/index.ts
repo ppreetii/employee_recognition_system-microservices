@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { rabbitmq } from "@reward-sys/common";
 
 import { app } from "./app";
 import config from "./configs/config";
-import { rabbitmq } from "@reward-sys/common";
+import { DeleteEmployeeListener } from "./events/listeners/delete-employee-listener";
 
 const checkEnvironmentVars = () => {
    if (!config.mongoUrl) {
@@ -26,6 +27,8 @@ const startServer = async () =>{
     process.on("SIGINT", () => rabbitmq.client.close());
     process.on("SIGTERM", () => rabbitmq.client.close());
 
+    new DeleteEmployeeListener(rabbitmq.client).subscribe();
+    
     await mongoose.connect(config.mongoUrl!);
     console.log("Connected to Database")
     app.listen(config.port, () => {

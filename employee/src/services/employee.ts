@@ -3,6 +3,7 @@ import {
   ForbiddenError,
   NotFoundError,
   Roles,
+  rabbitmq
 } from "@reward-sys/common";
 
 import { Employee } from "../models/employee";
@@ -12,6 +13,7 @@ import {
   EmployeeDoc,
 } from "../types/employee";
 import { COMMON } from "../constants/common";
+import { DeleteEmployeePublisher } from "../events/publishers/delete-employee-publisher";
 
 const createEmployee = async (data: EmployeeAttrs) => {
   try {
@@ -131,14 +133,23 @@ const updateEmployee = async (
 const deleteEmployee = async (empId: string, role: string) =>{
   try {
     const employee = await Employee.findById(empId);
+
     if(!employee){
       throw new NotFoundError();
+    }
+
+    if (employee.is_active === 0) {
+      return;
     }
 
     employee.is_active = 0;
     await employee.save();
 
-    //TODO: publish delete employee msg to auth
+    new DeleteEmployeePublisher(rabbitmq.client).publish({
+        email: employee.email,
+        employeeId: empId
+    });
+    console.log("Delete Employee Message Published!")
   } catch (error) {
     throw error;
   }
