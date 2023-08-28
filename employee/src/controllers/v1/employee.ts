@@ -67,9 +67,30 @@ const updateEmployee = async (
   }
 };
 
+const deleteEmployee = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const empId = req.params.empId;
+    const role = req.currentUser?.role!;
+    
+    await employeeService.deleteEmployee(
+      empId,
+      role,
+    );
+
+    res.status(204).json({});
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   createEmployee,
   getEmployees,
   getEmployeeById,
-  updateEmployee
+  updateEmployee,
+  deleteEmployee
 };

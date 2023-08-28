@@ -1,11 +1,15 @@
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import { BadRequestError , NotAuthorizedError, Roles} from "@reward-sys/common";
+import {
+  BadRequestError,
+  NotAuthorizedError,
+  Roles,
+  rabbitmq,
+} from "@reward-sys/common";
 
 import { Auth } from "../models/auth";
 import { Password } from "../utils/password";
 import { NewEmployeePublisher } from "../events/publishers/new-employee-publisher";
-import { rabbitmq } from "../rabbitmq";
 
 const signup = async (email: string, password: string, role: Roles) => {
   try {

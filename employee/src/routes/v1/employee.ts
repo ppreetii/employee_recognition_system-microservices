@@ -34,12 +34,19 @@ router.get(
   empController.getEmployeeById
 );
 
-router.put(
+router.patch(
   `${API.EMP_ID}`,
   requireAuth,
   hasPermissions(EmployeeActions.UpdateEmployee),
   validateRequest(updateEmployeeSchema),
   empController.updateEmployee
+);
+
+router.delete(
+  `${API.EMP_ID}`,
+  requireAuth,
+  hasPermissions(EmployeeActions.DeleteEmployee),
+  empController.deleteEmployee
 );
 
 

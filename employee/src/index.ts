@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 import { app } from "./app";
 import config from "./configs/confg";
-import { rabbitmq } from "./rabbitmq";
+import { rabbitmq } from "@reward-sys/common";
 import { NewEmployeeListener } from "./events/listeners/new-employee-listener";
 
 const checkEnvironmentVars = () => {

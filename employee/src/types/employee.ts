@@ -26,6 +26,7 @@ export interface EmployeeDoc extends mongoose.Document {
   employee_of_the_week: Number;
   employee_of_the_month: Number;
   bonusStars: Number;
+  is_active : Number;
 }
 
 //interface describing properties needed to create an employee by post request

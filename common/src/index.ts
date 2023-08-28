@@ -22,5 +22,6 @@ export * from "./utils/custom-validations";
 export * from "./rabbitmq/listener";
 export * from "./rabbitmq/publisher";
 export * from "./rabbitmq/routing-keys";
+export * from "./rabbitmq/rabbitmq";
 export * from "./rabbitmq/exhanges/exchange";
 export * from "./rabbitmq/events/employee/create-employee-event";

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 import { app } from "./app";
 import config from "./configs/config";
-import { rabbitmq } from "./rabbitmq";
+import { rabbitmq } from "@reward-sys/common";
 
 const checkEnvironmentVars = () => {
    if (!config.mongoUrl) {

@@ -128,6 +128,22 @@ const updateEmployee = async (
   }
 };
 
+const deleteEmployee = async (empId: string, role: string) =>{
+  try {
+    const employee = await Employee.findById(empId);
+    if(!employee){
+      throw new NotFoundError();
+    }
+
+    employee.is_active = 0;
+    await employee.save();
+
+    //TODO: publish delete employee msg to auth
+  } catch (error) {
+    throw error;
+  }
+}
+
 function updateBySelf(employee: EmployeeDoc, data: UpdateEmployeeAttrs) {
   if (data.contact) employee.contact = data.contact;
   if (data.personal_email) employee.personal_email = data.personal_email;
@@ -148,4 +164,5 @@ export default {
   getEmployees,
   getEmployeeById,
   updateEmployee,
+  deleteEmployee
 };

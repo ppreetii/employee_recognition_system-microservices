@@ -20,6 +20,7 @@ export const EmployeeMapping = [
   AuthActions.Login,
 
   EmployeeActions.GetEmployeeById,
+  EmployeeActions.UpdateEmployee,
 
   TaskActions.CreateTask,
   TaskActions.GetTaskById,
@@ -29,8 +30,9 @@ export const EmployeeMapping = [
 
 export const ProjectMapping = [
   AuthActions.Login,
-  
+
   EmployeeActions.GetEmployeeById,
+  EmployeeActions.UpdateEmployee,
 
   TaskActions.CreateTask,
   TaskActions.GetTaskById,
