@@ -1,23 +1,12 @@
 import request from "supertest";
-import mongoose from "mongoose";
 import { Roles } from "@reward-sys/common";
 
 import { app } from "../../src/app";
-import { Auth } from "../../src/models/auth";
 import { API } from "../../src/constants/api";
+import { createAccount } from "../utils/auth";
 
 const url = `${API.BASE_URL}${API.AUTH}${API.LOGIN}`;
 
-const createAccount = async (email: string, password: string, role: Roles) => {
-  const employeeId = new mongoose.Types.ObjectId();
-  const employee = Auth.build({
-    email,
-    password,
-    role,
-    employeeId,
-  });
-  await employee.save();
-};
 
 describe(`Login SUCCESS Test Cases : POST ${url}`, () => {
   it("Respond with cookie for valid credentials", async () => {

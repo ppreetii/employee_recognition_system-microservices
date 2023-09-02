@@ -1,28 +1,16 @@
 import request from "supertest";
-import mongoose from "mongoose";
 import { Roles } from "@reward-sys/common";
 
 import { app } from "../../src/app";
 import { API } from "../../src/constants/api";
 import data from "../data/auth";
-import { Auth } from "../../src/models/auth";
+import { createAccount } from "../utils/auth";
 
 const url = `${API.BASE_URL}${API.AUTH}${API.SIGNUP}`;
 
-const createAccount = async (email: string, password: string, role: Roles) => {
-  const employeeId = new mongoose.Types.ObjectId();
-  const employee = Auth.build({
-    email,
-    password,
-    role,
-    employeeId,
-  });
-  await employee.save();
-};
-
 describe(`SignUp API SUCCESS Test Cases : POST ${url}`, () => {
   it("Returns 201 on successful signup", async () => {
-    const response = await request(app)
+    return request(app)
       .post(url)
       .send(data.request)
       .set("Cookie", global.signin(Roles.Organization))

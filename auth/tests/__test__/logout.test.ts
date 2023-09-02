@@ -1,24 +1,11 @@
 import request from "supertest";
-import { Roles } from "@reward-sys/common";
-import mongoose from "mongoose";
 
 import { app } from "../../src/app";
 import { API } from "../../src/constants/api";
-import { Auth } from "../../src/models/auth";
-import data from "../data/auth"
+import data from "../data/auth";
+import { createAccount } from "../utils/auth";
 
 const url = `${API.BASE_URL}${API.AUTH}${API.LOGOUT}`;
-
-const createAccount = async (email: string, password: string, role: Roles) => {
-  const employeeId = new mongoose.Types.ObjectId();
-  const employee = Auth.build({
-    email,
-    password,
-    role,
-    employeeId,
-  });
-  await employee.save();
-};
 
 describe(`Logout : POST ${url}`, () => {
   it("Clears cookie upon Logout", async () => {
