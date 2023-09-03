@@ -5,6 +5,7 @@ import { app } from "../../src/app";
 import { API } from "../../src/constants/api";
 import data from "../data/auth";
 import { createAccount } from "../utils/auth";
+import { NewEmployeePublisher } from "../../src/events/publishers/new-employee-publisher";
 
 const url = `${API.BASE_URL}${API.AUTH}${API.SIGNUP}`;
 
@@ -15,6 +16,20 @@ describe(`SignUp API SUCCESS Test Cases : POST ${url}`, () => {
       .send(data.request)
       .set("Cookie", global.signin(Roles.Organization))
       .expect(201);
+  });
+
+  it("Publish event on account creation", async () => {
+    const publishSpy = jest.spyOn(NewEmployeePublisher.prototype, "publish");
+    await request(app)
+      .post(url)
+      .send(data.request)
+      .set("Cookie", global.signin(Roles.Organization))
+      .expect(201);
+    
+    expect(publishSpy).toHaveBeenCalled();
+
+    publishSpy.mockReset(); 
+    publishSpy.mockRestore();
   });
 });
 
