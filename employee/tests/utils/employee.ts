@@ -12,5 +12,5 @@ export const createAccount = async (email: string) => { //this is done by rabbit
 
   await employee.save();
 
-  return id;
+  return id.toHexString();
 };
