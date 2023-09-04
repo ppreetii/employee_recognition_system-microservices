@@ -6,7 +6,7 @@ import { rabbitmq } from "./__mocks__/rabbitmq";
 import config from "../src/configs/confg";
 
 declare global {
-  var signin: (role: string) => string[];
+  var signin: (role: string, id ?: string) => string[];
 }
 
 let mongo: any;
@@ -43,10 +43,10 @@ afterAll(async () => {
   }
 });
 
-global.signin = (role: string) => {
+global.signin = (role: string, id ?: string) => {
   const token = jwt.sign(
     {
-      id: new mongoose.Types.ObjectId().toHexString(),
+      id: id ?? new mongoose.Types.ObjectId().toHexString(),
       email: "test@test.com",
       role,
     },

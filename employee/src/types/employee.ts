@@ -8,7 +8,7 @@ export interface AccountAttrs {
 
 //interface describing properties of Employee Model
 export interface EmployeeModel extends mongoose.Model<EmployeeDoc> {
-  build(attrs: AccountAttrs): EmployeeDoc;
+  build(attrs: AccountAttrs | EmployeeAttrs): EmployeeDoc;
 }
 
 //interface describing properties that a Employee document has, one that is returned by Mongo

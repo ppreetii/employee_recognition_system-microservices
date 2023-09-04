@@ -18,7 +18,10 @@ const invalidRequest = {
     designation: true,
 }
 
+const id = "64f65d9d4f99e8dde7f34113";
+
 export default {
     validRequest,
-    invalidRequest
+    invalidRequest,
+    id
 }
