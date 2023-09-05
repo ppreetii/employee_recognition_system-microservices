@@ -25,6 +25,8 @@ export const createEmployee = async (projectId = false) =>{
 
   return {
     id: employee.id,
-    projectId: employee.projectId
+    projectId: employee.projectId,
+    designation: employee.designation,
+    departmentId: employee.departmentId
   }
 }

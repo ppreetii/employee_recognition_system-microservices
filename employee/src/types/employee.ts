@@ -49,6 +49,6 @@ export interface UpdateEmployeeAttrs {
   address?: string;
   projectId?: string;
   departmentId?: string;
-  designation: string;
+  designation?: string;
 }
 

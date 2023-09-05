@@ -118,7 +118,9 @@ const updateEmployee = async (
       updateBySelf(employee, data);
     }
 
-    if (role === Roles.Organization) {
+    if (role === Roles.Organization && empId !== loginId) { 
+      // an employee with organization role cannot update their own designation, department, and project,s/he can update it for other 
+      //employee only, not self
       updateByOrganization(employee, data);
     }
 
