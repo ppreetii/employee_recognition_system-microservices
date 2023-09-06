@@ -16,8 +16,11 @@ export const createAccount = async (email: string) => { //this is done by rabbit
   return id.toHexString();
 };
 
-export const createEmployee = async (projectId = false) =>{
+export const createEmployee = async (projectId = false, is_active = 1) =>{
   const employee = Employee.build(data.validRequest);
+  if(is_active === 0){
+    employee.is_active = 0;
+  }
   if(projectId){
     employee.projectId = new mongoose.Types.ObjectId().toHexString();
   }

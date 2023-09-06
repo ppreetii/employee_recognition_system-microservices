@@ -40,6 +40,7 @@ export interface EmployeeAttrs {
   projectId?: string;
   departmentId?: string;
   designation: string;
+  is_active ?: Number;
 }
 
 //interface describing properties needed to update an employee by patch request
