@@ -1,10 +1,10 @@
 import request from "supertest";
 
-import { app } from "../../src/app";
-import { API } from "../../src/constants/api";
-import mockData from "../data/employee";
+import { app } from "../../../src/app";
+import { API } from "../../../src/constants/api";
+import mockData from "../../data/employee";
 import { Roles } from "@reward-sys/common";
-import { createAccount } from "../utils/employee";
+import { createAccount } from "../../utils/employee";
 
 const url = `${API.BASE_URL}${API.EMPLOYEE}`;
 

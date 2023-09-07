@@ -1,9 +1,9 @@
 import request from "supertest";
 
-import { app } from "../../src/app";
-import { API } from "../../src/constants/api";
-import data from "../data/auth";
-import { createAccount } from "../utils/auth";
+import { app } from "../../../src/app";
+import { API } from "../../../src/constants/api";
+import data from "../../data/auth";
+import { createAccount } from "../../utils/auth";
 
 const url = `${API.BASE_URL}${API.AUTH}${API.LOGOUT}`;
 

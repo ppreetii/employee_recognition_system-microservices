@@ -1,5 +1,4 @@
 import { Channel, Message } from "amqplib";
-import mongoose from "mongoose";
 import {
   Listener,
   RoutingKeys,

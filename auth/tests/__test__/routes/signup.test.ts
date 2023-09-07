@@ -1,11 +1,11 @@
 import request from "supertest";
 import { Roles } from "@reward-sys/common";
 
-import { app } from "../../src/app";
-import { API } from "../../src/constants/api";
-import data from "../data/auth";
-import { createAccount } from "../utils/auth";
-import { NewEmployeePublisher } from "../../src/events/publishers/new-employee-publisher";
+import { app } from "../../../src/app";
+import { API } from "../../../src/constants/api";
+import data from "../../data/auth";
+import { createAccount } from "../../utils/auth";
+import { NewEmployeePublisher } from "../../../src/events/publishers/new-employee-publisher";
 
 const url = `${API.BASE_URL}${API.AUTH}${API.SIGNUP}`;
 
