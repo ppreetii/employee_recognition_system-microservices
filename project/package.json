@@ -1,7 +1,7 @@
 {
-  "name": "employee",
+  "name": "project",
   "version": "1.0.0",
-  "description": "",
+  "description": "CRUD REST APIS for project service",
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev src/index.ts",
@@ -19,23 +19,20 @@
   "author": "Preeti Gupta",
   "license": "ISC",
   "dependencies": {
-    "@reward-sys/common": "^1.0.21",
-    "@types/amqplib": "^0.10.1",
-    "@types/cookie-session": "^2.0.44",
+    "@reward-sys/common": "^1.0.32",
+    "@types/cookie-session": "^2.0.45",
     "@types/express": "^4.17.17",
     "@types/joi": "^17.2.3",
-    "@types/mongoose": "^5.11.97",
-    "amqplib": "^0.10.3",
     "cookie-session": "^2.0.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "joi": "^17.9.2",
-    "mongoose": "^7.4.2",
+    "joi": "^17.10.2",
+    "mongoose": "^7.5.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.4",
+    "@types/jest": "^29.5.5",
     "@types/supertest": "^2.0.12",
     "jest": "^29.7.0",
     "mongodb-memory-server": "^8.15.1",

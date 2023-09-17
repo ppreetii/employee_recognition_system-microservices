@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 import { app } from "./app";
-import config from "./configs/confg";
+import config from "./configs/config";
 import { rabbitmq } from "@reward-sys/common";
 import { NewEmployeeListener } from "./events/listeners/new-employee-listener";
 

@@ -1,7 +1,6 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import { rabbitmq } from "./__mocks__/rabbitmq";
 
 import config from "../src/configs/config";
 
@@ -19,14 +18,6 @@ beforeAll(async () => {
   await mongoose.connect(mongoUri, {});
 });
 
-// mock the functions
-jest.mock("@reward-sys/common", () => {
-  const originalModule = jest.requireActual("@reward-sys/common");
-  return {
-    ...originalModule,
-    rabbitmq
-  };
-});
 
 beforeEach(async () => {
   jest.clearAllMocks();

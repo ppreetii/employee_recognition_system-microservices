@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 import { RoutingKeys } from "../../routing-keys";
 import { ExchangeTypes } from "../../exhanges/exchange";
 

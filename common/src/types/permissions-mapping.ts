@@ -1,20 +1,9 @@
-import { EmployeeActions, TaskActions, AuthActions } from "./permissions";
-
-export const OrganizationMapping = [
-  AuthActions.SignUp,
-  AuthActions.Login,
-
-  EmployeeActions.CreateEmployee,
-  EmployeeActions.GetEmployees,
-  EmployeeActions.GetEmployeeById,
-  EmployeeActions.UpdateEmployee,
-  EmployeeActions.DeleteEmployee,
-
-  TaskActions.CreateTask,
-  TaskActions.GetTaskById,
-  TaskActions.GetTasks,
-  TaskActions.DeleteTask,
-];
+import {
+  EmployeeActions,
+  TaskActions,
+  AuthActions,
+  ProjectActions,
+} from "./permissions";
 
 export const EmployeeMapping = [
   AuthActions.Login,
@@ -29,14 +18,22 @@ export const EmployeeMapping = [
 ];
 
 export const ProjectMapping = [
-  AuthActions.Login,
+  ...EmployeeMapping,
 
-  EmployeeActions.GetEmployeeById,
-  EmployeeActions.UpdateEmployee,
-
-  TaskActions.CreateTask,
-  TaskActions.GetTaskById,
-  TaskActions.GetTasks,
-  TaskActions.DeleteTask,
+  ProjectActions.GetAllProjects,
 ];
 
+export const OrganizationMapping = [
+  ...ProjectMapping,
+
+  AuthActions.SignUp,
+
+  EmployeeActions.CreateEmployee,
+  EmployeeActions.GetEmployees,
+  EmployeeActions.DeleteEmployee,
+
+  ProjectActions.CreateProject,
+  ProjectActions.GetProjectById,
+  ProjectActions.UpdateProject,
+  ProjectActions.CloseProject,
+];
