@@ -59,6 +59,7 @@ const getEmployees = async (page: number = 1) => {
 
     //TODO: Implement cache for Product and Name to populate product and department after Creating Product and Department Services
     return {
+      total: count,
       currentPage: page,
       nextPage: page + 1 <= lastPage ? page + 1 : lastPage,
       previousPage: page - 1 >= 1 ? page - 1 : 1,

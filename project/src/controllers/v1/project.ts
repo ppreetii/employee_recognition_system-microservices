@@ -15,6 +15,21 @@ const createProject = async (
   }
 };
 
+const getAllProjects = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {role, id} = req.currentUser!;
+    const projects = await projectService.getAllProjects(role, id!);
+    res.json(projects);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   createProject,
+  getAllProjects
 };

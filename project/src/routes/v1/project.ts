@@ -19,4 +19,11 @@ router.post(
   projectController.createProject
 );
 
+router.get(
+  "/",
+  requireAuth,
+  hasPermissions(ProjectActions.GetAllProjects),
+  projectController.getAllProjects
+);
+
 export { router as projectRoutes };

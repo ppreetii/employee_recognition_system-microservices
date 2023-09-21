@@ -1,7 +1,7 @@
 import express from "express";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
-import { NotFoundError, errorHandler } from "@reward-sys/common";
+import { PageNotFoundError, errorHandler } from "@reward-sys/common";
 
 import { projectRoutes } from "./routes/v1/project";
 import { API } from "./constants/api";
@@ -21,7 +21,7 @@ app.use(`${API.BASE_URL}${API.PROJECT}`, projectRoutes);
 
 app.use(errorHandler);
 app.all("*", () => {
-  throw new NotFoundError();
+  throw new PageNotFoundError();
 });
 
 export { app };

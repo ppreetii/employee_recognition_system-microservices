@@ -22,7 +22,7 @@ describe(`Get All Employee SUCCESS Test cases: GET ${url}`, () => {
   });
 });
 
-describe(`Create Employee FAILURE Test cases: POST ${url}`, () => {
+describe(`Get All Employees FAILURE Test cases: GET ${url}`, () => {
   it("Returns 401 if not logged in", async () => {
     return request(app)
     .get(url)
