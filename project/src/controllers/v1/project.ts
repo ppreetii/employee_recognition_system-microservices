@@ -29,7 +29,22 @@ const getAllProjects = async (
   }
 };
 
+const getProjectById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const pid = req.params.pid
+    const project= await projectService.getProjectById(pid);
+    res.json(project);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   createProject,
-  getAllProjects
+  getAllProjects,
+  getProjectById
 };

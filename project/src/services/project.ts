@@ -1,4 +1,4 @@
-import { Roles, formatDateIST } from "@reward-sys/common";
+import { NotFoundError, Roles, formatDateIST } from "@reward-sys/common";
 
 import { Project } from "../models/project";
 import { ProjectAttrs } from "../types/project-model";
@@ -32,7 +32,7 @@ const getAllProjects = async (
 
     const count = await Project.find(filterOptions).countDocuments();
 
-    const projects = await Project.find(filterOptions)
+    const projects = await Project.find(filterOptions) //TODO: populate client and manager information
       .skip((page - 1) * COMMON.PROJECTS_PER_PAGE)
       .limit(COMMON.PROJECTS_PER_PAGE);
 
@@ -51,7 +51,22 @@ const getAllProjects = async (
   }
 };
 
+const getProjectById = async (projectId: string) => {
+  try {
+    const project = await Project.findById(projectId); //TODO : populate client and manager information
+
+    if (!project) {
+      throw new NotFoundError();
+    }
+
+    return project;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   createProject,
   getAllProjects,
+  getProjectById,
 };

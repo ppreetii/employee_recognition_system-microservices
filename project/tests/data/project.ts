@@ -16,5 +16,6 @@ const invalidRequest = {
 
 export default {
     validRequest,
-    invalidRequest
+    invalidRequest,
+    id
 }

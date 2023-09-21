@@ -8,6 +8,7 @@ import {
 
 import projectController from "../../controllers/v1/project";
 import { createProjectSchema } from "../../validation-schema/project";
+import { API } from "../../constants/api";
 
 const router = express.Router();
 
@@ -24,6 +25,13 @@ router.get(
   requireAuth,
   hasPermissions(ProjectActions.GetAllProjects),
   projectController.getAllProjects
+);
+
+router.get(
+  `${API.PROJ_ID}`,
+  requireAuth,
+  hasPermissions(ProjectActions.GetProjectById),
+  projectController.getProjectById
 );
 
 export { router as projectRoutes };
