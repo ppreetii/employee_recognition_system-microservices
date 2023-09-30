@@ -21,6 +21,8 @@ export const ProjectMapping = [
   ...EmployeeMapping,
 
   ProjectActions.GetAllProjects,
+  EmployeeActions.GetEmployeesList,
+  ProjectActions.UpdateProject,
 ];
 
 export const OrganizationMapping = [
@@ -34,6 +36,5 @@ export const OrganizationMapping = [
 
   ProjectActions.CreateProject,
   ProjectActions.GetProjectById,
-  ProjectActions.UpdateProject,
   ProjectActions.CloseProject,
 ];

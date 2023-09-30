@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 import projectService from "../../services/project";
+import { Roles } from "@reward-sys/common";
 
 const createProject = async (
   req: Request,
@@ -43,8 +44,31 @@ const getProjectById = async (
   }
 };
 
+const updateProject = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const pid = req.params.pid;
+    const role = req.currentUser!.role;
+    let managerId = null;
+    if(role === Roles.Project)
+      managerId = req.currentUser!.id;
+    const data = req.body;
+
+    const project = await projectService.updateProject(role, pid, data, managerId);
+
+    res.json(project);
+   
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   createProject,
   getAllProjects,
-  getProjectById
+  getProjectById,
+  updateProject
 };

@@ -7,7 +7,7 @@ import {
 } from "@reward-sys/common";
 
 import projectController from "../../controllers/v1/project";
-import { createProjectSchema } from "../../validation-schema/project";
+import { createProjectSchema,updateProjectSchema } from "../../validation-schema/project";
 import { API } from "../../constants/api";
 
 const router = express.Router();
@@ -32,6 +32,14 @@ router.get(
   requireAuth,
   hasPermissions(ProjectActions.GetProjectById),
   projectController.getProjectById
+);
+
+router.patch(
+  `${API.PROJ_ID}`,
+  requireAuth,
+  hasPermissions(ProjectActions.UpdateProject),
+  validateRequest(updateProjectSchema),
+  projectController.updateProject
 );
 
 export { router as projectRoutes };

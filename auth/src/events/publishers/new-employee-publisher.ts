@@ -9,7 +9,6 @@ import { Options } from "amqplib";
 
 export class NewEmployeePublisher extends Publisher<NewEmployeeEvent> {
   readonly routingKey = RoutingKeys.NewEmployee;
-  readonly queue = RoutingKeys.NewEmployee;
   readonly exchange = Exchange.Employee;
   readonly exchangeType = ExchangeTypes.Direct;
   protected publishOptions?: Options.Publish | undefined = {

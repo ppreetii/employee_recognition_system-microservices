@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import { ProjectModel, ProjectDoc, ProjectAttrs } from "../types/project-model";
+import { ProjectModel, ProjectDoc, ProjectAttrs } from "../types/project";
 
 const projectSchema = new mongoose.Schema(
   {
@@ -13,7 +13,22 @@ const projectSchema = new mongoose.Schema(
       required: true,
     },
     manager_id: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "employee"
+    },
+    past_managers: {
+      type: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "employee"
+      }],
+      default: [],
+    },
+    team_members: {
+      type: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "employee"
+      }],
+      default: [],
     },
     created_on: {
       type: String,
@@ -33,17 +48,22 @@ const projectSchema = new mongoose.Schema(
     toJSON: {
       transform(doc, ret) {
         ret.id = ret._id;
+        ret.manager = ret.manager_id;
         delete ret._id;
         delete ret.__v;
+        delete ret.manager_id
       },
     },
   }
 );
 
 projectSchema.statics.build = (attrs: ProjectAttrs) => {
-    return new Project(attrs);
-  };
+  return new Project(attrs);
+};
 
-const Project = mongoose.model<ProjectDoc, ProjectModel>("project", projectSchema);
+const Project = mongoose.model<ProjectDoc, ProjectModel>(
+  "project",
+  projectSchema
+);
 
-export {Project};
+export { Project };

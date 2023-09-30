@@ -7,9 +7,10 @@ export interface NewEmployeeEvent {
   routingKey: RoutingKeys.NewEmployee;
   queue: RoutingKeys.NewEmployee;
   exchange: string;
-  exchangeType: ExchangeTypes.Direct;
+  exchangeType: ExchangeTypes;
   message: {
     email: string;
     employeeId: mongoose.Types.ObjectId;
+    name?: string;
   };
 }

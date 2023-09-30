@@ -1,10 +1,11 @@
 import { Connection, Options, Channel, Message } from "amqplib";
 
 import { Event } from "../types/event-type";
+import { Queue } from "./queues/queue";
 
 export abstract class Listener<T extends Event> {
   abstract routingKey: T["routingKey"];
-  abstract queue: T["queue"];
+  abstract queue: Queue;
   abstract exchange: T["exchange"];
   abstract exchangeType: T["exchangeType"];
   abstract onMessage(data: T["message"], channel: Channel, msg: Message): void;

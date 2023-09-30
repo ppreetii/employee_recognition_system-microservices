@@ -4,6 +4,7 @@ export const EmployeeActions = {
   GetEmployeeById: 3,
   UpdateEmployee: 4,
   DeleteEmployee: 5,
+  GetEmployeesList: 18
 };
 
 export const TaskActions = {
@@ -24,5 +25,5 @@ export const ProjectActions = {
   GetAllProjects: 14,
   GetProjectById: 15,
   UpdateProject: 16,
-  CloseProject: 17,
+  CloseProject: 17
 };

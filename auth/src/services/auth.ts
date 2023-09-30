@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import {
   BadRequestError,
   NotAuthorizedError,
+  Queue,
   Roles,
   rabbitmq,
 } from "@reward-sys/common";
@@ -24,10 +25,13 @@ const signup = async (email: string, password: string, role: Roles) => {
     const account = Auth.build({ email, password, role, employeeId });
     await account.save();
 
-    new NewEmployeePublisher(rabbitmq.client).publish({
-      email: account.email,
-      employeeId: account.employeeId,
-    });
+    new NewEmployeePublisher(rabbitmq.client).publish(
+      {
+        email: account.email,
+        employeeId: account.employeeId,
+      },
+      [Queue.Employee]
+    );
 
     return {
       email: account.email,

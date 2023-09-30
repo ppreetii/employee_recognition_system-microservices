@@ -19,9 +19,10 @@ app.use(
 
 app.use(`${API.BASE_URL}${API.PROJECT}`, projectRoutes);
 
-app.use(errorHandler);
 app.all("*", () => {
   throw new PageNotFoundError();
 });
+
+app.use(errorHandler);
 
 export { app };

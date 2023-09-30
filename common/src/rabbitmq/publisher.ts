@@ -4,7 +4,6 @@ import { Event } from "../types/event-type";
 
 export abstract class Publisher<T extends Event> {
   abstract routingKey: T["routingKey"];
-  abstract queue: T["queue"];
   abstract exchange: T["exchange"];
   abstract exchangeType: T["exchangeType"];
 
@@ -17,7 +16,7 @@ export abstract class Publisher<T extends Event> {
     this.rabbitmq = rabbitmq;
   }
 
-  async publish(data: T["message"]): Promise<void> {
+  async publish(data: T["message"], queues: string[]): Promise<void> {
     try {
       const channel = await this.rabbitmq.createChannel();
       await channel.assertExchange(
@@ -25,7 +24,9 @@ export abstract class Publisher<T extends Event> {
         this.exchangeType,
         this.assertExchangeOptions
       );
-      channel.assertQueue(this.queue, this.assertQueueOptions);
+      queues.forEach(queue => {
+        channel.assertQueue(queue, this.assertQueueOptions);
+      });
       channel.publish(
         this.exchange,
         this.routingKey,

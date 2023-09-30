@@ -6,14 +6,14 @@ import {
   ExchangeTypes,
   Exchange,
   NotFoundError,
-  Queue,
+  Queue
 } from "@reward-sys/common";
 
-import { Auth } from "../../models/auth";
+import { Employee } from "../../models/employee";
 
 export class DeleteEmployeeListener extends Listener<DeleteEmployeeEvent> {
   readonly routingKey = RoutingKeys.DeleteEmployee;
-  readonly queue = Queue.Auth;
+  readonly queue = Queue.Project;
   readonly exchange = Exchange.Auth;
   readonly exchangeType = ExchangeTypes.Direct;
   async onMessage(
@@ -22,26 +22,23 @@ export class DeleteEmployeeListener extends Listener<DeleteEmployeeEvent> {
     msg: Message
   ): Promise<void> {
     try {
-      const account = await Auth.findOne({
-        email: data.email,
-        employeeId: data.employeeId,
-      });
+      const employee = await Employee.findById(data.employeeId);
 
-      if (!account) {
+      if(!employee){
         throw new NotFoundError();
       }
 
-      if (account.is_active === 0) {
+      if(employee.is_active === 0){
         return channel.ack(msg);
       }
 
-      account.is_active = 0;
-
-      await account.save();
+      employee.is_active = 0;
+      
+      await employee.save();
 
       channel.ack(msg);
 
-      console.log("Delete Employee Msg Processed!");
+      console.log("Delete Employee Msg Processed!")
     } catch (error) {
       throw error;
     }

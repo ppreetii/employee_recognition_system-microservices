@@ -7,7 +7,7 @@ export interface DeleteEmployeeEvent {
   routingKey: RoutingKeys.DeleteEmployee;
   queue: RoutingKeys.DeleteEmployee;
   exchange: string;
-  exchangeType: ExchangeTypes.Direct;
+  exchangeType: ExchangeTypes;
   message: {
     email: string;
     employeeId: string;

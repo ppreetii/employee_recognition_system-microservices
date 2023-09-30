@@ -13,28 +13,26 @@ import { Employee } from "../../models/employee";
 
 export class NewEmployeeListener extends Listener<NewEmployeeEvent> {
   readonly routingKey = RoutingKeys.NewEmployee;
-  readonly queue = Queue.Employee;
-  readonly exchange = Exchange.Employee;
+  readonly queue = Queue.Project;
+  readonly exchange = Exchange.Project;
   readonly exchangeType = ExchangeTypes.Direct;
-  async onMessage(
-    data: { email: string; employeeId: mongoose.Types.ObjectId },
-    channel: Channel,
-    msg: Message
-  ): Promise<void> {
+  protected retry: number = 0;
+  async onMessage(data: { email: string; employeeId: mongoose.Types.ObjectId; name?: string | undefined; }, channel: Channel, msg: Message): Promise<void> {
     try {
-      const exists = await Employee.findById(data.employeeId);
-      if(exists){
+      if(!data.name){
         return channel.ack(msg);
       }
       const employee = Employee.build({
         id: data.employeeId,
         email: data.email,
+        name: data.name!
       });
 
       await employee.save();
 
       channel.ack(msg);
-    } catch (error) {
+      console.log("New Employee Msg Processed successfully")
+    } catch (error: any) {
       throw error;
     }
   }

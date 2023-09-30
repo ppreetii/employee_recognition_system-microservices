@@ -8,3 +8,8 @@ export const createProjectSchema = joi
     manager_id: joi.string(),
   })
   .required();
+
+export const updateProjectSchema = joi.object().keys({
+  manager_id : joi.string(),
+  members : joi.array().items(joi.string())
+}).required();

@@ -10,6 +10,8 @@ export interface ProjectDoc extends mongoose.Document {
   name: string;
   client_id: string;
   manager_id: string;
+  team_members: string[];
+  past_managers: string[];
   created_on: string;
   closed_on: string;
   closed_by: string;
@@ -30,6 +32,8 @@ export interface ProjectAttrs {
 //interface describing properties needed to update a project by patch request
 export interface UpdateProjectAttrs {
   manager_id?: string;
+  members?: string[];
   closed_on?: string;
   closed_by?: string;
 }
+

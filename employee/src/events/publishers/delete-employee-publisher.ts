@@ -9,8 +9,7 @@ import { Options } from "amqplib";
 
 export class DeleteEmployeePublisher extends Publisher<DeleteEmployeeEvent> {
   readonly routingKey = RoutingKeys.DeleteEmployee;
-  readonly queue = RoutingKeys.DeleteEmployee;
-  readonly exchange = Exchange.Employee;
+  readonly exchange = Exchange.Auth;
   readonly exchangeType = ExchangeTypes.Direct;
   protected publishOptions?: Options.Publish | undefined = {
     persistent: true,

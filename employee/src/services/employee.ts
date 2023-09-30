@@ -2,8 +2,9 @@ import {
   BadRequestError,
   ForbiddenError,
   NotFoundError,
+  Queue,
   Roles,
-  rabbitmq
+  rabbitmq,
 } from "@reward-sys/common";
 
 import { Employee } from "../models/employee";
@@ -14,6 +15,7 @@ import {
 } from "../types/employee";
 import { COMMON } from "../constants/common";
 import { DeleteEmployeePublisher } from "../events/publishers/delete-employee-publisher";
+import { NewEmployeePublisher } from "../events/publishers/new-employee-publisher";
 
 const createEmployee = async (data: EmployeeAttrs) => {
   try {
@@ -35,6 +37,15 @@ const createEmployee = async (data: EmployeeAttrs) => {
     employee.designation = data.designation;
 
     await employee.save();
+
+    new NewEmployeePublisher(rabbitmq.client).publish(
+      {
+        email: employee.email,
+        employeeId: employee.id,
+        name: employee.name,
+      },
+      [Queue.Project]
+    );
 
     return {
       id: employee.id,
@@ -119,8 +130,8 @@ const updateEmployee = async (
       updateBySelf(employee, data);
     }
 
-    if (role === Roles.Organization && empId !== loginId) { 
-      // an employee with organization role cannot update their own designation, department, and project,s/he can update it for other 
+    if (role === Roles.Organization && empId !== loginId) {
+      // an employee with organization role cannot update their own designation, department, and project,s/he can update it for other
       //employee only, not self
       updateByOrganization(employee, data);
     }
@@ -133,11 +144,11 @@ const updateEmployee = async (
   }
 };
 
-const deleteEmployee = async (empId: string, role: string) =>{
+const deleteEmployee = async (empId: string, role: string) => {
   try {
     const employee = await Employee.findById(empId);
 
-    if(!employee){
+    if (!employee) {
       throw new NotFoundError();
     }
 
@@ -148,15 +159,17 @@ const deleteEmployee = async (empId: string, role: string) =>{
     employee.is_active = 0;
     await employee.save();
 
-    new DeleteEmployeePublisher(rabbitmq.client).publish({
+    new DeleteEmployeePublisher(rabbitmq.client).publish(
+      {
         email: employee.email,
-        employeeId: empId
-    });
-    console.log("Delete Employee Message Published!")
+        employeeId: empId,
+      },
+      [Queue.Auth, Queue.Project]
+    );
   } catch (error) {
     throw error;
   }
-}
+};
 
 function updateBySelf(employee: EmployeeDoc, data: UpdateEmployeeAttrs) {
   if (data.contact) employee.contact = data.contact;
@@ -178,5 +191,5 @@ export default {
   getEmployees,
   getEmployeeById,
   updateEmployee,
-  deleteEmployee
+  deleteEmployee,
 };
