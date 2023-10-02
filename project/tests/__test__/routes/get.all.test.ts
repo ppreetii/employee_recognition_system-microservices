@@ -5,7 +5,7 @@ import { app } from "../../../src/app";
 import { API } from "../../../src/constants/api";
 import mockData from "../../data/project";
 import { Roles } from "@reward-sys/common";
-import { createProject } from "../../utils/project";
+import { createEmployee, createProject } from "../../utils/project";
 
 const url = `${API.BASE_URL}${API.PROJECT}`;
 
@@ -24,18 +24,18 @@ describe(`Get All Projects SUCCESS Test cases: GET ${url}`, () => {
   });
 
   it("Returns 200 for success case for Project role, and returns only project role's assigned project", async () => {
-    const managerId = new mongoose.Types.ObjectId().toHexString();
-    const { id } = await createProject(managerId);
+    const employee = await createEmployee();
+    const { id } = await createProject(employee.id);
     const res = await request(app)
       .get(url)
-      .set("Cookie", global.signin(Roles.Project, managerId))
+      .set("Cookie", global.signin(Roles.Project, employee.id))
       .expect(200);
 
     expect(res.body.data).toBeDefined();
     expect(res.body.total).toBe(1);
     expect(res.body.data[0].name).toBe(mockData.validRequest.name);
     expect(res.body.data[0].id).toBe(id);
-    expect(res.body.data[0].manager_id).toBe(managerId);
+    expect(res.body.data[0].manager.name).toBe(employee.name);
   });
 });
 

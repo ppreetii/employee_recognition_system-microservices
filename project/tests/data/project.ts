@@ -14,8 +14,27 @@ const invalidRequest = {
     manager_id: 12.46
 }
 
+const validUpdateReq = {
+    manager_id : new mongoose.Types.ObjectId().toHexString(),
+    members : [
+        new mongoose.Types.ObjectId().toHexString(),
+        new mongoose.Types.ObjectId().toHexString()
+    ]
+}
+
+const invalidUpdateReq = {
+    manager_id: 25356248,
+    members: [
+        new mongoose.Types.ObjectId().toHexString(),
+        12243546,
+        23432748
+    ]
+}
+
 export default {
     validRequest,
     invalidRequest,
-    id
+    id,
+    invalidUpdateReq,
+    validUpdateReq
 }

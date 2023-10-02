@@ -1,10 +1,14 @@
-import { NotFoundError, Roles, formatDateIST } from "@reward-sys/common";
+import {
+  ForbiddenError,
+  NotFoundError,
+  Roles,
+  formatDateIST,
+} from "@reward-sys/common";
 
 import { Project } from "../models/project";
 import { ProjectAttrs, ProjectDoc, UpdateProjectAttrs } from "../types/project";
 import { COMMON } from "../constants/common";
 import { Employee } from "../models/employee";
-import mongoose from "mongoose";
 
 const createProject = async (data: ProjectAttrs) => {
   try {
@@ -101,6 +105,9 @@ const updateProject = async (
     }
 
     if (role === Roles.Project) {
+      if (project.manager_id.toString() !== managerId) {
+        throw new ForbiddenError();
+      }
       updateProjectByProj(project, data, managerId!);
     }
 
@@ -137,11 +144,8 @@ function updateProjectByProj(
     }
     const map = new Map();
     project.team_members.forEach((member) => {
-      if(!map.has(member.toString()))
-        map.set(member.toString(), 1);
+      if (!map.has(member.toString())) map.set(member.toString(), 1);
     });
-
-    console.log(map)
 
     for (let member of data.members!) {
       if (!map.has(member.toString())) {
