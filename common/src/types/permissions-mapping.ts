@@ -21,7 +21,6 @@ export const ProjectMapping = [
   ...EmployeeMapping,
 
   ProjectActions.GetAllProjects,
-  EmployeeActions.GetEmployeesList,
   ProjectActions.UpdateProject,
 ];
 

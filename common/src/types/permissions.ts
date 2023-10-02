@@ -3,8 +3,7 @@ export const EmployeeActions = {
   GetEmployees: 2,
   GetEmployeeById: 3,
   UpdateEmployee: 4,
-  DeleteEmployee: 5,
-  GetEmployeesList: 18
+  DeleteEmployee: 5
 };
 
 export const TaskActions = {

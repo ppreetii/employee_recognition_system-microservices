@@ -18,10 +18,11 @@ app.use(
 );
 
 app.use(`${API.BASE_URL}${API.AUTH}`, authRoutes);
-app.use(errorHandler);
+
 app.all("*", () => {
   throw new NotFoundError();
 });
 
+app.use(errorHandler);
 
 export { app };

@@ -19,9 +19,10 @@ app.use(
 
 app.use(`${API.BASE_URL}${API.EMPLOYEE}`, employeeRoutes);
 
-app.use(errorHandler);
 app.all("*", () => {
   throw new NotFoundError();
 });
+
+app.use(errorHandler);
 
 export { app };
