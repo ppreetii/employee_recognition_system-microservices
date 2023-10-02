@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
 import config from "../src/configs/config";
+import { rabbitmq } from "./__mocks__/rabbitmq";
 
 declare global {
   var signin: (role: string, id ?: string) => string[];
@@ -10,6 +11,14 @@ declare global {
 
 let mongo: any;
 
+// mock the functions
+jest.mock("@reward-sys/common", () => {
+  const originalModule = jest.requireActual("@reward-sys/common");
+  return {
+    ...originalModule,
+    rabbitmq
+  };
+});
 
 beforeAll(async () => {
   process.env.JWT_KEY = config.jwtKey;

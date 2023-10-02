@@ -6,6 +6,8 @@ import mockData from "../../data/employee";
 import { Roles } from "@reward-sys/common";
 import { createAccount } from "../../utils/employee";
 
+import { NewEmployeePublisher } from "../../../src/events/publishers/new-employee-publisher";
+
 const url = `${API.BASE_URL}${API.EMPLOYEE}`;
 
 describe(`Create Employee SUCCESS Test cases: POST ${url}`, () => {
@@ -16,6 +18,20 @@ describe(`Create Employee SUCCESS Test cases: POST ${url}`, () => {
       .send(mockData.validRequest)
       .set("Cookie", global.signin(Roles.Organization))
       .expect(201);
+  });
+  it("Publish event on employee creation", async () => {
+    const publishSpy = jest.spyOn(NewEmployeePublisher.prototype, "publish");
+    
+    await createAccount(mockData.validRequest.email);
+    await request(app)
+      .post(url)
+      .send(mockData.validRequest)
+      .set("Cookie", global.signin(Roles.Organization))
+      .expect(201);
+    expect(publishSpy).toHaveBeenCalled();
+
+    publishSpy.mockReset(); 
+    publishSpy.mockRestore();
   });
 });
 
