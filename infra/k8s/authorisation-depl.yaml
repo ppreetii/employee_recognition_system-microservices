@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authorisation-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authorisation
+  template:
+    metadata:
+      labels:
+        app: authorisation
+    spec:
+      containers:
+        - name: authorisation
+          image: preeti097/authorisation
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authorisation-srv
+spec:
+  selector:
+    app: authorisation
+  ports:
+    - name: authorisation
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
