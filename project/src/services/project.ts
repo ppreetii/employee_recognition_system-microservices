@@ -156,9 +156,27 @@ function updateProjectByProj(
   }
 }
 
+const deleteProject = async (projectId: string, empId: string) =>{
+  try {
+    const project = await Project.findById(projectId);
+    if (!project) {
+      throw new NotFoundError();
+    }
+
+    project.is_active = 0;
+    project.closed_on = formatDateIST(new Date());
+    project.closed_by = empId;
+
+    await project.save();
+  } catch (error) {
+    throw error;
+  }
+}
+
 export default {
   createProject,
   getAllProjects,
   getProjectById,
   updateProject,
+  deleteProject
 };

@@ -42,4 +42,11 @@ router.patch(
   projectController.updateProject
 );
 
+router.delete(
+  `${API.PROJ_ID}`,
+  requireAuth,
+  hasPermissions(ProjectActions.CloseProject),
+  projectController.deleteProject
+)
+
 export { router as projectRoutes };
