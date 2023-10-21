@@ -26,8 +26,7 @@ spec:
                   number: 5000
           - path: /api/v1/projects/?(.*)
             pathType: Prefix
-            backend:
-            
+            backend:           
               service:
                 name: project-srv
                 port:

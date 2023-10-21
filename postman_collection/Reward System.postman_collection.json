@@ -1,0 +1,1057 @@
+{
+	"info": {
+		"_postman_id": "97c889a3-a324-4bed-8777-7423b1f5595a",
+		"name": "Reward System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29490491"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"emp6@peaksoft.com\",\r\n    \"password\": \"1234567890\",\r\n    \"role\" : \"employee\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{domain}}/api/v1/auth/signup",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login -Org",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{domain}}/api/v1/auth/login",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login -Org",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"1234567890\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/v1/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "225"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e1-iigP0yHKYCp2hyqcxcr+4iihpx8\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "session=eyJqd3QiOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKbGJXRnBiQ0k2SW5SbGMzUkFkR1Z6ZEM1amIyMGlMQ0p5YjJ4bElqb2liM0puWVc1cGVtRjBhVzl1SWl3aWFXRjBJam94TmprMU16TTVOekk1TENKbGVIQWlPakUyT1RVek5ETXpNamw5LjB4WVFBLVdXU1I3VVFvRkdEN0RMbEFubjV4VVhfWDNYcFFSSFdfYUpvYzQifQ==; path=/; httponly"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Sep 2023 23:42:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJyb2xlIjoib3JnYW5pemF0aW9uIiwiaWF0IjoxNjk1MzM5NzI5LCJleHAiOjE2OTUzNDMzMjl9.0xYQA-WWSR7UQoFGD7DLlAnn5xUX_X3XpQRHW_aJoc4\",\n    \"email\": \"test@test.com\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login - Project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"emp2@peaksoft.com\",\r\n    \"password\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{domain}}/api/v1/auth/login",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login - Project",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"emp2@peaksoft.com\",\r\n    \"password\": \"1234567890\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/v1/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "271"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"10f-u2rIopIMZ7hSw/huyi2Nr2gSIlc\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "session=eyJqd3QiOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJalkxTVRnM01ERXdNVEEzWWpNeFltUTBNVFkyTlRSaE5pSXNJbVZ0WVdsc0lqb2laVzF3TWtCd1pXRnJjMjltZEM1amIyMGlMQ0p5YjJ4bElqb2ljSEp2YW1WamRDSXNJbWxoZENJNk1UWTVOakV3TlRNek5Dd2laWGh3SWpveE5qazJNVEE0T1RNMGZRLnhJUElUVWNBb3h0eUduRUpWa0g2aFNmU0tDWU9TMTBvaGlKYWlfb3JIY2MifQ==; path=/; httponly"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 30 Sep 2023 20:22:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTg3MDEwMTA3YjMxYmQ0MTY2NTRhNiIsImVtYWlsIjoiZW1wMkBwZWFrc29mdC5jb20iLCJyb2xlIjoicHJvamVjdCIsImlhdCI6MTY5NjEwNTMzNCwiZXhwIjoxNjk2MTA4OTM0fQ.xIPITUcAoxtyGnEJVkH6hSfSKCYOS10ohiJai_orHcc\",\n    \"email\": \"emp2@peaksoft.com\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login - Employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"emp1@peaksoft.com\",\r\n    \"password\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{domain}}/api/v1/auth/login",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://{{domain}}/api/v1/auth/logout",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "Page Not Found",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{domain}}/api/v1/non-exist",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"non-exist"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Page Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:6000/api/v1/non-exist",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"v1",
+										"non-exist"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-rnxuxMlrvGAQGJJqhu7iTdkkkKE\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Sep 2023 19:54:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"message\": \"Page Not Found\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"project 3\",\r\n    \"client_id\": \"client 3\",\r\n    \"manager_id\": \"65187010107b31bd416654a6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{domain}}/api/v1/projects/",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"projects",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Project",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"project 1\",\r\n    \"client_id\": \"client 1\",\r\n    \"manager_id\": \"65187010107b31bd416654a6\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6000/api/v1/projects/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"v1",
+										"projects",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "192"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c0-DYZj3wEQPguulWeslL4ndv2kh9A\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 30 Sep 2023 19:00:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"project 1\",\n    \"client_id\": \"client 1\",\n    \"manager_id\": \"65187010107b31bd416654a6\",\n    \"past_managers\": [],\n    \"team_members\": [],\n    \"created_on\": \"2023-10-01\",\n    \"is_active\": 1,\n    \"id\": \"65187057882625797c0f0dbb\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Projects - Org",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{domain}}/api/v1/projects",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Projects - Project",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{domain}}/api/v1/projects",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"projects"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Projects - Project",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:6000/api/v1/projects",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"v1",
+										"projects"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "687"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2af-7zqPhtRcGM1klYvGdyV6E1P5FvE\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 30 Sep 2023 20:22:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"total\": 3,\n    \"currentPage\": 1,\n    \"nextPage\": 1,\n    \"previousPage\": 1,\n    \"lastPage\": 1,\n    \"data\": [\n        {\n            \"name\": \"project 1\",\n            \"client_id\": \"client 1\",\n            \"past_managers\": [],\n            \"team_members\": [],\n            \"created_on\": \"2023-10-01\",\n            \"is_active\": 1,\n            \"id\": \"65187057882625797c0f0dbb\",\n            \"manager\": {\n                \"name\": \"Employee 2\"\n            }\n        },\n        {\n            \"name\": \"project 2\",\n            \"client_id\": \"client 2\",\n            \"past_managers\": [\n                \"65187010107b31bd416654a7\",\n                \"65187010107b31bd416654a6\"\n            ],\n            \"team_members\": [],\n            \"created_on\": \"2023-10-01\",\n            \"is_active\": 1,\n            \"id\": \"65187956ee51d87d8f454181\",\n            \"manager\": {\n                \"name\": \"Employee 2\"\n            }\n        },\n        {\n            \"name\": \"project 3\",\n            \"client_id\": \"client 3\",\n            \"past_managers\": [],\n            \"team_members\": [],\n            \"created_on\": \"2023-10-01\",\n            \"is_active\": 1,\n            \"id\": \"65187a7bd1bed561db93083f\",\n            \"manager\": {\n                \"name\": \"Employee 2\"\n            }\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get a Project - Org",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{domain}}/api/v1/projects/65187956ee51d87d8f454181",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"projects",
+								"65187956ee51d87d8f454181"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get a Project - Org",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:6000/api/v1/projects/65187057882625797c0f0dbb",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"v1",
+										"projects",
+										"65187057882625797c0f0dbb"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "192"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c0-DYZj3wEQPguulWeslL4ndv2kh9A\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 30 Sep 2023 19:01:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"project 1\",\n    \"client_id\": \"client 1\",\n    \"manager_id\": \"65187010107b31bd416654a6\",\n    \"past_managers\": [],\n    \"team_members\": [],\n    \"created_on\": \"2023-10-01\",\n    \"is_active\": 1,\n    \"id\": \"65187057882625797c0f0dbb\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update A Project",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"members\": [\"65188c3ec1da088a080025cf\",\"65188c34c1da088a080025cb\", \"65188c30c1da088a080025c7\"  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{domain}}/api/v1/projects/65187956ee51d87d8f454181",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"projects",
+								"65187956ee51d87d8f454181"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "Create an Employee",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"emp6@peaksoft.com\",\r\n    \"address\": \"address6\",\r\n    \"birthDate\": \"1992-07-01\",\r\n    \"contact\": \"0000011112\",\r\n    \"designation\": \"DevOps Engineer\",\r\n    \"name\": \"Employee 6\",\r\n    \"personal_email\": \"persona6@test.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{domain}}/api/v1/employees",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employees"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create an Employee",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"emp3@peaksoft.com\",\r\n    \"address\": \"address3\",\r\n    \"birthDate\": \"1997-10-01\",\r\n    \"contact\": \"0000011111\",\r\n    \"designation\": \"Data Analyst\",\r\n    \"name\": \"Employee 3\",\r\n    \"personal_email\": \"persona3@test.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/employees",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"employees"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "147"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"93-M1yGplZ8QMYtyJFEn2/IPPbgQZ8\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 28 Sep 2023 23:16:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"651604e298a707d3b0d3e56d\",\n    \"name\": \"Employee 3\",\n    \"email\": \"emp3@peaksoft.com\",\n    \"designation\": \"Data Analyst\",\n    \"projectId\": null,\n    \"departmentId\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all Employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{domain}}/api/v1/employees",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employees"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all Employees",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/employees",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"employees"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1741"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6cd-zqx6f4UhvcuoxLq8IpGc4HYIuxQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Sep 2023 18:59:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"total\": 5,\n    \"currentPage\": 1,\n    \"nextPage\": 1,\n    \"previousPage\": 1,\n    \"lastPage\": 1,\n    \"data\": [\n        {\n            \"email\": \"emp1@peaksoft.com\",\n            \"bonusStars\": 10,\n            \"is_active\": 1,\n            \"address\": \"updated address\",\n            \"birthDate\": \"1997-12-29\",\n            \"contact\": \"1111122222\",\n            \"designation\": \"Sr. Software Engineer\",\n            \"name\": \"Employee 1\",\n            \"personal_email\": \"personal_test1@test.com\",\n            \"employee_of_the_day\": 0,\n            \"employee_of_the_month\": 0,\n            \"employee_of_the_week\": 0,\n            \"id\": \"64dff538c92f40bb6faddffd\"\n        },\n        {\n            \"employee_of_the_day\": 0,\n            \"employee_of_the_week\": 0,\n            \"employee_of_the_month\": 0,\n            \"email\": \"emp2@peaksoft.com\",\n            \"bonusStars\": 10,\n            \"is_active\": 1,\n            \"address\": \"sgdvshfbjnsdmfcsd/,f\",\n            \"birthDate\": \"1997-12-29\",\n            \"contact\": \"1111122222\",\n            \"designation\": \"Software Engineer\",\n            \"name\": \"Employee 2\",\n            \"personal_email\": \"personal_test2@test.com\",\n            \"id\": \"64dff58ac92f40bb6fade001\"\n        },\n        {\n            \"email\": \"emp4@peaksoft.com\",\n            \"employee_of_the_day\": 0,\n            \"employee_of_the_week\": 0,\n            \"employee_of_the_month\": 0,\n            \"bonusStars\": 10,\n            \"is_active\": 0,\n            \"address\": \"updated address2\",\n            \"birthDate\": \"1997-12-29\",\n            \"contact\": \"0000011111\",\n            \"designation\": \"Sr.Software Engineer\",\n            \"name\": \"Employee 4\",\n            \"personal_email\": \"update2@test.com\",\n            \"id\": \"64e54286c2d32337a66424ab\"\n        },\n        {\n            \"email\": \"emp5@peaksoft.com\",\n            \"employee_of_the_day\": 0,\n            \"employee_of_the_week\": 0,\n            \"employee_of_the_month\": 0,\n            \"bonusStars\": 10,\n            \"is_active\": 1,\n            \"address\": \"address5\",\n            \"birthDate\": \"1997-12-29\",\n            \"contact\": \"0000011111\",\n            \"designation\": \"Manager\",\n            \"name\": \"Employee 5\",\n            \"personal_email\": \"personal5@test.com\",\n            \"id\": \"650cb5d346c0306b617890ad\"\n        },\n        {\n            \"email\": \"emp6@peaksoft.com\",\n            \"employee_of_the_day\": 0,\n            \"employee_of_the_week\": 0,\n            \"employee_of_the_month\": 0,\n            \"bonusStars\": 10,\n            \"is_active\": 1,\n            \"address\": \"address6\",\n            \"birthDate\": \"1987-12-11\",\n            \"contact\": \"0000011111\",\n            \"designation\": \"Manager\",\n            \"name\": \"Employee 6\",\n            \"personal_email\": \"personal6@test.com\",\n            \"id\": \"650cc77946c0306b617890b2\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get an Employee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{domain}}/api/v1/employees/651866c45ac3be59f2caaaf1",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employees",
+								"651866c45ac3be59f2caaaf1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all Employees",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/employees",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"employees"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1741"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6cd-zqx6f4UhvcuoxLq8IpGc4HYIuxQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Sep 2023 18:59:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"total\": 5,\n    \"currentPage\": 1,\n    \"nextPage\": 1,\n    \"previousPage\": 1,\n    \"lastPage\": 1,\n    \"data\": [\n        {\n            \"email\": \"emp1@peaksoft.com\",\n            \"bonusStars\": 10,\n            \"is_active\": 1,\n            \"address\": \"updated address\",\n            \"birthDate\": \"1997-12-29\",\n            \"contact\": \"1111122222\",\n            \"designation\": \"Sr. Software Engineer\",\n            \"name\": \"Employee 1\",\n            \"personal_email\": \"personal_test1@test.com\",\n            \"employee_of_the_day\": 0,\n            \"employee_of_the_month\": 0,\n            \"employee_of_the_week\": 0,\n            \"id\": \"64dff538c92f40bb6faddffd\"\n        },\n        {\n            \"employee_of_the_day\": 0,\n            \"employee_of_the_week\": 0,\n            \"employee_of_the_month\": 0,\n            \"email\": \"emp2@peaksoft.com\",\n            \"bonusStars\": 10,\n            \"is_active\": 1,\n            \"address\": \"sgdvshfbjnsdmfcsd/,f\",\n            \"birthDate\": \"1997-12-29\",\n            \"contact\": \"1111122222\",\n            \"designation\": \"Software Engineer\",\n            \"name\": \"Employee 2\",\n            \"personal_email\": \"personal_test2@test.com\",\n            \"id\": \"64dff58ac92f40bb6fade001\"\n        },\n        {\n            \"email\": \"emp4@peaksoft.com\",\n            \"employee_of_the_day\": 0,\n            \"employee_of_the_week\": 0,\n            \"employee_of_the_month\": 0,\n            \"bonusStars\": 10,\n            \"is_active\": 0,\n            \"address\": \"updated address2\",\n            \"birthDate\": \"1997-12-29\",\n            \"contact\": \"0000011111\",\n            \"designation\": \"Sr.Software Engineer\",\n            \"name\": \"Employee 4\",\n            \"personal_email\": \"update2@test.com\",\n            \"id\": \"64e54286c2d32337a66424ab\"\n        },\n        {\n            \"email\": \"emp5@peaksoft.com\",\n            \"employee_of_the_day\": 0,\n            \"employee_of_the_week\": 0,\n            \"employee_of_the_month\": 0,\n            \"bonusStars\": 10,\n            \"is_active\": 1,\n            \"address\": \"address5\",\n            \"birthDate\": \"1997-12-29\",\n            \"contact\": \"0000011111\",\n            \"designation\": \"Manager\",\n            \"name\": \"Employee 5\",\n            \"personal_email\": \"personal5@test.com\",\n            \"id\": \"650cb5d346c0306b617890ad\"\n        },\n        {\n            \"email\": \"emp6@peaksoft.com\",\n            \"employee_of_the_day\": 0,\n            \"employee_of_the_week\": 0,\n            \"employee_of_the_month\": 0,\n            \"bonusStars\": 10,\n            \"is_active\": 1,\n            \"address\": \"address6\",\n            \"birthDate\": \"1987-12-11\",\n            \"contact\": \"0000011111\",\n            \"designation\": \"Manager\",\n            \"name\": \"Employee 6\",\n            \"personal_email\": \"personal6@test.com\",\n            \"id\": \"650cc77946c0306b617890b2\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Employees Info By Ids",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ids\": [\r\n        \"64dff538c92f40bb6faddffd\",\r\n        \"64dff58ac92f40bb6fade001\",\r\n        \"64e54286c2d32337a66424ab\",\r\n        \"650cb5d346c0306b617890ad\",\r\n        \"650cc77946c0306b617890b2\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{domain}}/api/v1/employees/find",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employees",
+								"find"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Employees Info By Ids",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ids\": [\r\n        \"64dff538c92f40bb6faddffd\",\r\n        \"64dff58ac92f40bb6fade001\",\r\n        \"64e54286c2d32337a66424ab\",\r\n        \"650cb5d346c0306b617890ad\",\r\n        \"650cc77946c0306b617890b2\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/employees/find",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"find"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "633"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"279-XMzhwFIoWVgU5IlcdePLrOzD6XA\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Sep 2023 19:44:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"64dff538c92f40bb6faddffd\",\n        \"email\": \"emp1@peaksoft.com\",\n        \"bonusStars\": 10,\n        \"is_active\": 1,\n        \"__v\": 0,\n        \"address\": \"updated address\",\n        \"birthDate\": \"1997-12-29\",\n        \"contact\": \"1111122222\",\n        \"designation\": \"Sr. Software Engineer\",\n        \"name\": \"Employee 1\",\n        \"personal_email\": \"personal_test1@test.com\",\n        \"employee_of_the_day\": 0,\n        \"employee_of_the_month\": 0,\n        \"employee_of_the_week\": 0\n    },\n    {\n        \"_id\": \"64dff58ac92f40bb6fade001\",\n        \"email\": \"emp2@peaksoft.com\",\n        \"bonusStars\": 10,\n        \"is_active\": 1,\n        \"__v\": 0,\n        \"address\": \"sgdvshfbjnsdmfcsd/,f\",\n        \"birthDate\": \"1997-12-29\",\n        \"contact\": \"1111122222\",\n        \"designation\": \"Software Engineer\",\n        \"name\": \"Employee 2\",\n        \"personal_email\": \"personal_test2@test.com\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Delete Employee",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{domain}}/api/v1/employees/651866c45ac3be59f2caaaf1",
+							"protocol": "https",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employees",
+								"651866c45ac3be59f2caaaf1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
