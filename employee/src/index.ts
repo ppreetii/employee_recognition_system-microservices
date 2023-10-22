@@ -17,7 +17,7 @@ const checkEnvironmentVars = () => {
 const startServer = async () => {
   checkEnvironmentVars();
   
-  await rabbitmq.connect();
+  await rabbitmq.connect(config.rabbitmqUrl);
   console.log("Connected to RabbitMQ");
   rabbitmq.client.on("close", () => {
     console.log("RabbitMq Connection Closed.");

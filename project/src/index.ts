@@ -18,7 +18,7 @@ const checkEnvironmentVars = () => {
 const startServer = async () => {
   checkEnvironmentVars();
 
-  await rabbitmq.connect();
+  await rabbitmq.connect(config.rabbitmqUrl);
   console.log("Connected to RabbitMQ");
 
   //adding listners

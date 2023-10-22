@@ -16,8 +16,9 @@ const checkEnvironmentVars = () => {
 
 
 const startServer = async () =>{
+  try {
     checkEnvironmentVars();
-    await rabbitmq.connect();
+    await rabbitmq.connect(config.rabbitmqUrl);
     console.log("Connected to RabbitMQ");
     rabbitmq.client.on("close", () => {
       console.log("RabbitMq Connection Closed.");
@@ -34,6 +35,10 @@ const startServer = async () =>{
     app.listen(config.port, () => {
       console.log(`Auth Service Listening on : ${config.port}`);
     });
+  } catch (error) {
+    throw error;
+  }
+   
 }
 
 startServer();
