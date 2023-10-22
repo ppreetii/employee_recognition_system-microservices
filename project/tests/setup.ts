@@ -12,8 +12,8 @@ declare global {
 let mongo: any;
 
 // mock the functions
-jest.mock("@reward-sys/common", () => {
-  const originalModule = jest.requireActual("@reward-sys/common");
+jest.mock("@reward-sys/rabbitmq", () => {
+  const originalModule = jest.requireActual("@reward-sys/rabbitmq");
   return {
     ...originalModule,
     rabbitmq

@@ -2,10 +2,9 @@ import {
   BadRequestError,
   ForbiddenError,
   NotFoundError,
-  Queue,
-  Roles,
-  rabbitmq,
+  Roles
 } from "@reward-sys/common";
+import { rabbitmq, Queue} from "@reward-sys/rabbitmq";
 
 import { Employee } from "../models/employee";
 import {

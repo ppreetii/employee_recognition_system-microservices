@@ -1,10 +1,9 @@
-import mongoose from "mongoose";
 import {
   DeleteEmployeeEvent,
   Exchange,
   RoutingKeys,
   rabbitmq,
-} from "@reward-sys/common";
+} from "@reward-sys/rabbitmq";
 import { Channel, Message } from "amqplib";
 
 import { DeleteEmployeeListener } from "../../../src/events/listeners/delete-employee-listener";

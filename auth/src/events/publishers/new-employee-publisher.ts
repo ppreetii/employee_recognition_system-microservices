@@ -4,7 +4,7 @@ import {
   RoutingKeys,
   ExchangeTypes,
   Exchange
-} from "@reward-sys/common";
+} from "@reward-sys/rabbitmq";
 import { Options } from "amqplib";
 
 export class NewEmployeePublisher extends Publisher<NewEmployeeEvent> {

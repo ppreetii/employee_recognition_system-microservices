@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 import { app } from "./app";
 import config from "./configs/config";
-import { rabbitmq } from "@reward-sys/common";
+import { rabbitmq } from "@reward-sys/rabbitmq";
 import { NewEmployeeListener } from "./events/listeners/new-employee-listener";
 import { DeleteEmployeeListener } from "./events/listeners/delete-employee-listener";
 
@@ -18,7 +18,7 @@ const checkEnvironmentVars = () => {
 const startServer = async () => {
   checkEnvironmentVars();
 
-  await rabbitmq.connect(config.rabbitmqUrl);
+  await rabbitmq.connect();
   console.log("Connected to RabbitMQ");
 
   //adding listners

@@ -4,7 +4,7 @@ import {
   Exchange,
   RoutingKeys,
   rabbitmq,
-} from "@reward-sys/common";
+} from "@reward-sys/rabbitmq";
 import { Channel, Message } from "amqplib";
 
 import { NewEmployeeListener } from "../../../src/events/listeners/new-employee-listener";

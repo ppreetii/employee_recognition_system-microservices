@@ -286,7 +286,7 @@
     "@smithy/types" "^2.2.2"
     tslib "^2.5.0"
 
-"@aws-sdk/credential-providers@^3.186.0", "@aws-sdk/credential-providers@^3.201.0":
+"@aws-sdk/credential-providers@^3.186.0", "@aws-sdk/credential-providers@^3.188.0":
   version "3.405.0"
   resolved "https://registry.npmjs.org/@aws-sdk/credential-providers/-/credential-providers-3.405.0.tgz"
   integrity sha512-332QZ2Wrr5gfFUGPLwITcjhxnBD4y94fxKg7qerSBq7fjjIkl/OjnchZf5ReePrjpglxs6hgLdGrPYIYPC4Hhw==
@@ -1073,25 +1073,33 @@
   integrity sha512-IFjIgTusQym2B5IZJG3XKr5llka7ey84fw/NOYqESP5WUfQs9zz1ww/9+qoz4ka/S6KcGBodzlCeZ5UImKbscg==
 
 "@reward-sys/common@^1.0.0":
-  version "1.0.49"
-  resolved "https://registry.npmjs.org/@reward-sys/common/-/common-1.0.49.tgz"
-  integrity sha512-yKuGh1QbEiaqgmedad2Pp3o01GCx5yvfga36s3oXf9TyxlDyI3641VEOCmf8Ds5sH6cvi4JR2f4xVsgHoCk24A==
+  version "1.0.51"
+  resolved "https://registry.npmjs.org/@reward-sys/common/-/common-1.0.51.tgz"
+  integrity sha512-avQPpDGySLajcXaPLPeS6Q6HybamYzbPQEr764bfeVLNcBUgRG5wwLLK467+mPI9ZZNPfJoMHsWAtO8Q/6GwZw==
   dependencies:
-    "@types/amqplib" "^0.10.1"
     "@types/cookie-session" "^2.0.44"
     "@types/dotenv" "^8.2.0"
     "@types/express" "^4.17.17"
     "@types/joi" "^17.2.3"
     "@types/jsonwebtoken" "^9.0.2"
-    "@types/mongoose" "^5.11.97"
-    amqplib "^0.10.3"
     cookie-session "^2.0.0"
     dotenv "^16.3.1"
     express "^4.18.2"
     joi "^17.9.2"
     jsonwebtoken "^9.0.1"
-    mongoose "^7.4.3"
     redis "^4.6.10"
+
+"@reward-sys/rabbitmq@^1.0.1":
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/@reward-sys/rabbitmq/-/rabbitmq-1.0.3.tgz"
+  integrity sha512-mUtxnmnVpxau9ThVm3X30Wo/PSYSmpaxpPORPfZkZIgNBleZRARBIz+fgk3L7mnSjLyDhJpbBdFM05JW4XfOaw==
+  dependencies:
+    "@types/amqplib" "^0.10.3"
+    "@types/dotenv" "^8.2.0"
+    "@types/mongoose" "^5.11.97"
+    amqplib "^0.10.3"
+    dotenv "^16.3.1"
+    mongoose "^7.6.3"
 
 "@sideway/address@^4.1.3":
   version "4.1.4"
@@ -1489,10 +1497,10 @@
   resolved "https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.4.tgz"
   integrity sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==
 
-"@types/amqplib@^0.10.1":
-  version "0.10.1"
-  resolved "https://registry.npmjs.org/@types/amqplib/-/amqplib-0.10.1.tgz"
-  integrity sha512-j6ANKT79ncUDnAs/+9r9eDujxbeJoTjoVu33gHHcaPfmLQaMhvfbH2GqSe8KUM444epAp1Vl3peVOQfZk3UIqA==
+"@types/amqplib@^0.10.1", "@types/amqplib@^0.10.3":
+  version "0.10.3"
+  resolved "https://registry.npmjs.org/@types/amqplib/-/amqplib-0.10.3.tgz"
+  integrity sha512-ZVkD5RqoW6+n84WanWf0a74mT0CVWdXOEEEC9nZvseD//j36XiYGR2phjpHQM6JpYR4vcWnjgUbqFCFG7MB+lw==
   dependencies:
     "@types/node" "*"
 
@@ -2007,10 +2015,10 @@ bson@^4.7.2:
   dependencies:
     buffer "^5.6.0"
 
-bson@^5.4.0:
-  version "5.4.0"
-  resolved "https://registry.npmjs.org/bson/-/bson-5.4.0.tgz"
-  integrity sha512-WRZ5SQI5GfUuKnPTNmAYPiKIof3ORXAF4IRU5UcgmivNIon01rWQlw5RUH954dpu8yGL8T59YShVddIPaU/gFA==
+bson@^5.5.0:
+  version "5.5.1"
+  resolved "https://registry.npmjs.org/bson/-/bson-5.5.1.tgz"
+  integrity sha512-ix0EwukN2EpC0SRWIj/7B5+A6uQMQy6KMREI9qQqvgpkV2frH63T0UDVd1SYedL6dNCmDBYB3QtXi4ISk9YT+g==
 
 buffer-crc32@~0.2.3:
   version "0.2.13"
@@ -3576,25 +3584,25 @@ mongodb@^4.16.0:
     "@aws-sdk/credential-providers" "^3.186.0"
     "@mongodb-js/saslprep" "^1.1.0"
 
-mongodb@5.7.0:
-  version "5.7.0"
-  resolved "https://registry.npmjs.org/mongodb/-/mongodb-5.7.0.tgz"
-  integrity sha512-zm82Bq33QbqtxDf58fLWBwTjARK3NSvKYjyz997KSy6hpat0prjeX/kxjbPVyZY60XYPDNETaHkHJI2UCzSLuw==
+mongodb@5.9.0:
+  version "5.9.0"
+  resolved "https://registry.npmjs.org/mongodb/-/mongodb-5.9.0.tgz"
+  integrity sha512-g+GCMHN1CoRUA+wb1Agv0TI4YTSiWr42B5ulkiAfLLHitGK1R+PkSAf3Lr5rPZwi/3F04LiaZEW0Kxro9Fi2TA==
   dependencies:
-    bson "^5.4.0"
+    bson "^5.5.0"
     mongodb-connection-string-url "^2.6.0"
     socks "^2.7.1"
   optionalDependencies:
-    saslprep "^1.0.3"
+    "@mongodb-js/saslprep" "^1.1.0"
 
-mongoose@*, mongoose@^7.4.1, mongoose@^7.4.3:
-  version "7.4.3"
-  resolved "https://registry.npmjs.org/mongoose/-/mongoose-7.4.3.tgz"
-  integrity sha512-eok0lW6mZJHK2vVSWyJb9tUfPMUuRF3h7YC4pU2K2/YSZBlNDUwvKsHgftMOANbokP2Ry+4ylvzAdW4KjkRFjw==
+mongoose@*, mongoose@^7.4.1, mongoose@^7.6.3:
+  version "7.6.3"
+  resolved "https://registry.npmjs.org/mongoose/-/mongoose-7.6.3.tgz"
+  integrity sha512-moYP2qWCOdWRDeBxqB/zYwQmQnTBsF5DoolX5uPyI218BkiA1ujGY27P0NTd4oWIX+LLkZPw0LDzlc/7oh1plg==
   dependencies:
-    bson "^5.4.0"
+    bson "^5.5.0"
     kareem "2.5.1"
-    mongodb "5.7.0"
+    mongodb "5.9.0"
     mpath "0.9.0"
     mquery "5.0.0"
     ms "2.1.3"
@@ -3961,13 +3969,6 @@ safe-buffer@~5.1.2:
   version "2.1.2"
   resolved "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
-
-saslprep@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/saslprep/-/saslprep-1.0.3.tgz"
-  integrity sha512-/MY/PEMbk2SuY5sScONwhUDsV2p77Znkb/q3nSVstq/yQzYJOH/Azh29p9oJLsl3LnQwSvZDKagDGBsBwSooag==
-  dependencies:
-    sparse-bitfield "^3.0.3"
 
 semver@^6.0.0:
   version "6.3.1"

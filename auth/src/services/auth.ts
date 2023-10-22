@@ -3,10 +3,9 @@ import mongoose from "mongoose";
 import {
   BadRequestError,
   NotAuthorizedError,
-  Queue,
   Roles,
-  rabbitmq,
 } from "@reward-sys/common";
+import { rabbitmq,Queue } from "@reward-sys/rabbitmq";
 
 import { Auth } from "../models/auth";
 import { Password } from "../utils/password";

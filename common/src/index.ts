@@ -15,19 +15,8 @@ export * from "./middlewares/permissions";
 export * from "./types/roles";
 export * from "./types/permissions";
 export * from "./types/permissions-mapping";
-export * from "./types/event-type";
-export * from "./types/exchange-names";
 
 export * from "./utils/custom-validations";
 export * from "./utils/helpers";
-
-export * from "./rabbitmq/listener";
-export * from "./rabbitmq/publisher";
-export * from "./rabbitmq/routing-keys";
-export * from "./rabbitmq/rabbitmq";
-export * from "./rabbitmq/exhanges/exchange";
-export * from "./rabbitmq/queues/queue";
-export * from "./rabbitmq/events/employee/create-employee-event";
-export * from "./rabbitmq/events/employee/delete-employee-event";
 
 export * from "./redis/redis";

@@ -7,7 +7,7 @@ import {
   ExchangeTypes,
   Exchange,
   Queue
-} from "@reward-sys/common";
+} from "@reward-sys/rabbitmq";
 
 import { Employee } from "../../models/employee";
 

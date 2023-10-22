@@ -5,9 +5,9 @@ import {
   DeleteEmployeeEvent,
   ExchangeTypes,
   Exchange,
-  NotFoundError,
   Queue,
-} from "@reward-sys/common";
+} from "@reward-sys/rabbitmq";
+import { NotFoundError } from "@reward-sys/common";
 
 import { Auth } from "../../models/auth";
 
