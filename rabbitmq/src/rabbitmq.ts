@@ -1,7 +1,5 @@
 import amqplib from "amqplib";
 
-import config from "./configs/config";
-
 class RabbitMQ {
   private _client?: amqplib.Connection;
 
@@ -12,9 +10,9 @@ class RabbitMQ {
     return this._client;
   }
 
-  async connect() {
+  async connect(url: string) {
     try {
-      this._client = await amqplib.connect(config.rabbitmqUrl);
+      this._client = await amqplib.connect(url);
     } catch (error) {
       throw error;
     }
