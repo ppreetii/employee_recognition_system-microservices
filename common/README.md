@@ -1,6 +1,6 @@
 This is npm package module. It is used by services - auth, employee, project.
 
-The .env information has JWT_KEY. This key is the one used by auth service to set seesion. so make sure you use JWT_KEY used here, to be same across all other service
+The .env information has JWT_KEY. This key is the one used by auth service to set session. so make sure you use JWT_KEY used here, to be same across all other service
 
 ## Steps to publish npm package publicly:
 - Login to npm

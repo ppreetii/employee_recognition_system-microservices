@@ -4,6 +4,7 @@ import {
   AuthActions,
   ProjectActions,
 } from "./permissions";
+import { removePermission } from "../utils/permission";
 
 export const EmployeeMapping = [
   AuthActions.Login,
@@ -25,7 +26,7 @@ export const ProjectMapping = [
 ];
 
 export const OrganizationMapping = [
-  ...ProjectMapping,
+  ...removePermission(ProjectMapping, Object.values(TaskActions)),
 
   AuthActions.SignUp,
 

@@ -1,6 +1,6 @@
 import { app } from "./app";
 import config from "./configs/config";
-import { sequelize } from "./db";
+import SequelizeConnection from "./db/connection";
 
 const checkEnvironmentVars = () => {
   if (!config.jwtKey) {
@@ -11,10 +11,11 @@ const checkEnvironmentVars = () => {
 const startServer = async () => {
   try {
     checkEnvironmentVars();
-    await sequelize.sync();
+    const db = await SequelizeConnection.connect();
+    await db.sync();
     console.log("Database connected!");
     app.listen(config.port, () => {
-      console.log(`Auth Service Listening on : ${config.port}`);
+      console.log(`Task Service Listening on : ${config.port}`);
     });
   } catch (error) {
     throw error;
