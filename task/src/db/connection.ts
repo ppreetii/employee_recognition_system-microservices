@@ -1,4 +1,4 @@
-import { Dialect, Options, Sequelize } from "sequelize";
+import { Sequelize } from "sequelize";
 import config from "../configs/config";
 import { DatabaseConnectionError } from "@reward-sys/common";
 
@@ -10,19 +10,6 @@ let dbName =
     : environment === "development"
     ? `${config.dbName}_dev`
     : `${config.dbName}_test`;
-
-// const sequelize = new Sequelize(dbName, config.dbUser!, config.dbPassword, {
-//   dialect: "postgres",
-//   host: config.dbHost,
-//   logging: false,
-//   pool: {
-//     max: 30,
-//     acquire: 60000,
-//     idle: 30000,
-//   },
-// });
-
-// export default sequelize;
 
 class SequelizeConnection {
   private static instance: Sequelize;
