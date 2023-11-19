@@ -1,6 +1,6 @@
 import joi from "joi";
 
-import {isValidDate} from "@reward-sys/common";
+import {isValidDate, isValidMongoId} from "@reward-sys/common";
 import { VALIDATION } from "../constants/validation";
 
 export const createEmployeeSchema = joi.object().keys({
@@ -15,7 +15,7 @@ export const createEmployeeSchema = joi.object().keys({
   email: joi.string().email().required(),
   birthDate: joi.string().required().custom(isValidDate),
   address: joi.string().required(),
-  projectId: joi.string(),
+  projectId: joi.array().items(joi.string().custom(isValidMongoId)),
   departmentId: joi.string(),
   designation: joi.string().required(),
 });
@@ -28,7 +28,7 @@ export const updateEmployeeSchema = joi.object().keys({
     .message(VALIDATION.MSG.INVALID_CONTACT),
   personal_email: joi.string().email(),
   address: joi.string(),
-  projectId: joi.string(),
+  projectId: joi.array().items(joi.string().custom(isValidMongoId)),
   departmentId: joi.string(),
   designation: joi.string(),
 });

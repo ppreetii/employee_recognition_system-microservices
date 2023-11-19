@@ -19,7 +19,7 @@ export interface EmployeeDoc extends mongoose.Document {
   birthDate: string;
   address: string;
   email: string;
-  projectId: string;
+  projectId: string[];
   departmentId: string;
   designation: string;
   employee_of_the_day: Number;
@@ -37,7 +37,7 @@ export interface EmployeeAttrs {
   birthDate: string;
   address: string;
   email: string;
-  projectId?: string;
+  projectId?: string[];
   departmentId?: string;
   designation: string;
   is_active ?: Number;
@@ -48,7 +48,7 @@ export interface UpdateEmployeeAttrs {
   contact?: string;
   personal_email?: string;
   address?: string;
-  projectId?: string;
+  projectId?: string[];
   departmentId?: string;
   designation?: string;
 }

@@ -14,7 +14,9 @@ beforeAll(async () => {
   try {
     process.env.JWT_KEY = config.jwtKey;
     sequelize = await SequelizeConnection.connect();
-    await sequelize.sync();
+    await sequelize.sync({
+      force: true
+    });
   } catch (error) {
     throw error;
   }

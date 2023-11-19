@@ -34,7 +34,7 @@ describe(`Create Task SUCCESS Test cases: POST ${url}`, () => {
   });
 });
 
-xdescribe(`Create Task VALIDATION Test cases: POST ${url}`, () => {
+describe(`Create Task VALIDATION Test cases: POST ${url}`, () => {
   it("Returns 400 for invalid request body", async () => {
     return request(app)
       .post(url)
@@ -61,6 +61,16 @@ xdescribe(`Create Task VALIDATION Test cases: POST ${url}`, () => {
       .set("Cookie", global.signin(Roles.Employee))
       .expect(400);
   });
+
+  it("Returns 400 if projectId is invalid mongoID", async () => {
+    const reqBody = mockData.validReq;
+    reqBody.projectId = "12345"
+    return request(app)
+      .post(url)
+      .send(reqBody)
+      .set("Cookie", global.signin(Roles.Project))
+      .expect(400);
+  });
   
   it("Returns 400 for empty request body", async () => {
     return request(app)
@@ -71,7 +81,7 @@ xdescribe(`Create Task VALIDATION Test cases: POST ${url}`, () => {
   });
 });
 
-xdescribe(`Create Task FAILURE Test cases: POST ${url}`, () => {
+describe(`Create Task FAILURE Test cases: POST ${url}`, () => {
   it("Returns 403 for Organization Role", async ()=>{
     return request(app)
     .post(url)

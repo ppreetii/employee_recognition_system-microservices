@@ -20,6 +20,7 @@ build:
       context: employee
       docker:
         dockerfile: Dockerfile
+        # noCache: true
       sync:
         manual:
           - src: "src/**/*.ts"

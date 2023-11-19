@@ -1060,20 +1060,22 @@
   integrity sha512-IFjIgTusQym2B5IZJG3XKr5llka7ey84fw/NOYqESP5WUfQs9zz1ww/9+qoz4ka/S6KcGBodzlCeZ5UImKbscg==
 
 "@reward-sys/common@^1.0.21":
-  version "1.0.51"
-  resolved "https://registry.npmjs.org/@reward-sys/common/-/common-1.0.51.tgz"
-  integrity sha512-avQPpDGySLajcXaPLPeS6Q6HybamYzbPQEr764bfeVLNcBUgRG5wwLLK467+mPI9ZZNPfJoMHsWAtO8Q/6GwZw==
+  version "1.0.56"
+  resolved "https://registry.npmjs.org/@reward-sys/common/-/common-1.0.56.tgz"
+  integrity sha512-czY2iJ6VtRfs1Y7nk/59qc3lJQCGMqB+LS6OA1RgPOBqqSYHw03chZM+Fz/yNhvC8jNzKzfWLiMefDDuojjD5Q==
   dependencies:
     "@types/cookie-session" "^2.0.44"
     "@types/dotenv" "^8.2.0"
     "@types/express" "^4.17.17"
     "@types/joi" "^17.2.3"
     "@types/jsonwebtoken" "^9.0.2"
+    "@types/mongoose" "^5.11.97"
     cookie-session "^2.0.0"
     dotenv "^16.3.1"
     express "^4.18.2"
     joi "^17.9.2"
     jsonwebtoken "^9.0.1"
+    mongoose "^7.6.3"
     redis "^4.6.10"
 
 "@reward-sys/rabbitmq@^1.0.3":

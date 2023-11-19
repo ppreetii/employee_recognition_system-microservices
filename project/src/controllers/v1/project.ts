@@ -23,7 +23,8 @@ const getAllProjects = async (
 ) => {
   try {
     const { role, id } = req.currentUser!;
-    const projects = await projectService.getAllProjects(role, id!);
+    const page = req.query?.page ?? 1;
+    const projects = await projectService.getAllProjects(role, id!, +page);
     res.json(projects);
   } catch (error) {
     next(error);

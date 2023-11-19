@@ -3,6 +3,7 @@ export interface TaskAttrs{
   summary: string;
   description?: string;
   employeeId?: string;
+  projectId: string;
   status?: string;
   date_assigned?: string;
   deadline?: string;
@@ -16,6 +17,7 @@ export interface TaskModel {
   summary: string;
   description?: string;
   employeeId?: string;
+  projectId: string;
   status?: string;
   date_assigned?: string;
   deadline?: string;
@@ -27,10 +29,11 @@ export interface TaskModel {
 
 //interface that describes attributes of Task record returned upon query
 export interface TaskRec {
-   id: number,
+  id: number,
   summary: string;
   description: string;
   employeeId: string;
+  projectId: string;
   status: string;
   date_assigned: string;
   deadline: string;

@@ -2,9 +2,9 @@ import {
   BadRequestError,
   ForbiddenError,
   NotFoundError,
-  Roles
+  Roles,
 } from "@reward-sys/common";
-import { rabbitmq, Queue} from "@reward-sys/rabbitmq";
+import { rabbitmq, Queue } from "@reward-sys/rabbitmq";
 
 import { Employee } from "../models/employee";
 import {
@@ -46,14 +46,7 @@ const createEmployee = async (data: EmployeeAttrs) => {
       [Queue.Project]
     );
 
-    return {
-      id: employee.id,
-      name: employee.name,
-      email: employee.email,
-      designation: employee.designation,
-      projectId: employee.projectId ?? null,
-      departmentId: employee.departmentId ?? null,
-    };
+    return sanitizeEmpData(employee, true);
   } catch (error) {
     throw error;
   }
@@ -66,7 +59,7 @@ const getEmployees = async (page: number = 1) => {
       .skip((page - 1) * COMMON.EMPS_PER_PAGE)
       .limit(COMMON.EMPS_PER_PAGE);
     const lastPage = Math.ceil(count / COMMON.EMPS_PER_PAGE);
-
+    const data = employees.map((emp) => sanitizeEmpData(emp));
     //TODO: Implement cache for Product and Name to populate product and department after Creating Product and Department Services
     return {
       total: count,
@@ -74,7 +67,7 @@ const getEmployees = async (page: number = 1) => {
       nextPage: page + 1 <= lastPage ? page + 1 : lastPage,
       previousPage: page - 1 >= 1 ? page - 1 : 1,
       lastPage,
-      data: employees,
+      data,
     };
   } catch (error) {
     throw error;
@@ -83,8 +76,8 @@ const getEmployees = async (page: number = 1) => {
 
 const getEmployeeById = async (
   empId: string,
-  role: string,
-  loginId: string
+  role?: string,
+  loginId?: string
 ) => {
   try {
     if (role === Roles.Employee && empId !== loginId) {
@@ -98,12 +91,15 @@ const getEmployeeById = async (
 
     if (role === Roles.Project) {
       const currentUser = await Employee.findById(loginId);
-      if (currentUser?.projectId !== employee.projectId) {
+      let intersection = currentUser?.projectId.filter((proj) =>
+        employee.projectId.includes(proj)
+      );
+      if (!intersection?.length) {
         throw new ForbiddenError();
       }
     }
 
-    return employee;
+    return sanitizeEmpData(employee, true);
   } catch (error) {
     throw error;
   }
@@ -137,7 +133,7 @@ const updateEmployee = async (
 
     await employee.save();
 
-    return employee;
+    return sanitizeEmpData(employee,true);
   } catch (error) {
     throw error;
   }
@@ -183,6 +179,31 @@ function updateByOrganization(
   if (data.projectId) employee.projectId = data.projectId;
   if (data.departmentId) employee.departmentId = data.departmentId;
   if (data.designation) employee.designation = data.designation;
+}
+
+function sanitizeEmpData(record: EmployeeDoc, optional: boolean = false) {
+  const data: any = {
+    id: record.id,
+    name: record.name,
+    email: record.email,
+    designation: record.designation,
+    projectId: record.projectId ?? null,
+    departmentId: record.departmentId ?? null,
+    is_active: record.is_active,
+  };
+
+  if (optional) {
+    data.bonusStars = record.bonusStars;
+    data.address = record.address;
+    data.birthDate = record.birthDate;
+    data.contact = record.contact;
+    data.personal_email = record.personal_email;
+    data.employee_of_the_day = record.employee_of_the_day;
+    data.employee_of_the_month = record.employee_of_the_month;
+    data.employee_of_the_week = record.employee_of_the_week;
+  }
+
+  return data;
 }
 
 export default {

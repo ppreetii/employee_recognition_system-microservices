@@ -22,7 +22,7 @@ export const createEmployee = async (projectId = false, is_active = 1) =>{
     employee.is_active = 0;
   }
   if(projectId){
-    employee.projectId = new mongoose.Types.ObjectId().toHexString();
+    employee.projectId = [new mongoose.Types.ObjectId().toHexString()];
   }
   await employee.save();
 

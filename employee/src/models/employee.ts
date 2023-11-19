@@ -24,7 +24,8 @@ const employeeSchema = new mongoose.Schema(
       type: String,
     },
     projectId: {
-      type: String,
+      type: [String],
+      default:[]
     },
     departmentId: {
       type: String,

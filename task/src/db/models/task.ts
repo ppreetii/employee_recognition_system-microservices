@@ -7,6 +7,7 @@ import { TaskAttrs,TaskModel, TaskRec } from "../../types/task";
 class Task extends Model<TaskModel, TaskAttrs> implements TaskRec{
   public id!: number;
   public employeeId!: string;
+  public projectId!: string;
   public summary!: string;
   public description!: string;
   public status!: string;
@@ -28,6 +29,9 @@ Task.init(
       primaryKey: true,
     },
     employeeId: {
+      type: DataTypes.STRING,
+    },
+    projectId: {
       type: DataTypes.STRING,
     },
     summary: {

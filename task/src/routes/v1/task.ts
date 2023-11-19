@@ -21,4 +21,11 @@ router.post(
   taskController.createTask
 );
 
+router.get(
+  "/",
+  requireAuth,
+  hasPermissions(TaskActions.GetTasks),
+  taskController.getAllTasks
+);
+
 export { router as taskRoutes };

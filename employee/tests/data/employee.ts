@@ -7,7 +7,7 @@ const validRequest = {
   email: "emp1@peaksoft.com",
   birthDate: "1995-03-31",
   address: "Radhe Society, BudhNagar, Mohali, Punjab",
-  projectId: new mongoose.Types.ObjectId().toHexString(),
+  projectId: [new mongoose.Types.ObjectId().toHexString()],
   departmentId: new mongoose.Types.ObjectId().toHexString(),
   designation: "QA Engineer",
 };
@@ -26,7 +26,7 @@ const updateValidReq = {
   contact: "0123456789",
   personal_email: "update@test.com",
   address: "ShreeRam Niwas, NH-15, Near Rajwadi Hall, Pune, Maharashtra",
-  projectId: new mongoose.Types.ObjectId().toHexString(),
+  projectId: [new mongoose.Types.ObjectId().toHexString()],
   departmentId: new mongoose.Types.ObjectId().toHexString(),
   designation: "Sr. Manager",
 };

@@ -3,5 +3,6 @@ export const COMMON = {
         TODO: "ToDo",
         INPROGRESS: "InProgress",
         DONE: "Done"
-    }
+    },
+    LIMIT : 50
 }

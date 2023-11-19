@@ -24,7 +24,8 @@ const getEmployees = async (
   next: NextFunction
 ) => {
   try {
-    const data = await employeeService.getEmployees();
+    const page = req.params?.page ?? 1;
+    const data = await employeeService.getEmployees(+page);
     res.json(data);
   } catch (error) {
     next(error);
