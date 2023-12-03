@@ -28,4 +28,11 @@ router.get(
   taskController.getAllTasks
 );
 
+router.get(
+  `${API.TASK_ID}`,
+  requireAuth,
+  hasPermissions(TaskActions.GetTaskById),
+  taskController.getTask
+);
+
 export { router as taskRoutes };

@@ -25,7 +25,20 @@ const getAllTasks = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getTask = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const role = req.currentUser?.role!;
+    const id = req.currentUser?.id!;
+    const taskId = req.params.taskId;
+    const task = await taskService.getTask(role, id!, taskId);
+    res.json(task);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
     createTask,
-    getAllTasks
+    getAllTasks,
+    getTask
 }

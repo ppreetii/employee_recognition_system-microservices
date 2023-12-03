@@ -1,4 +1,4 @@
-import { Roles, formatDateIST } from "@reward-sys/common";
+import { BadRequestError, ForbiddenError, NotFoundError, Roles, formatDateIST } from "@reward-sys/common";
 import axios from "axios";
 import https from "https";
 
@@ -135,9 +135,44 @@ async function getEmployee(loginId: string) {
   }
 }
 
+const getTask = async (role: string, id: string, taskId: string) =>{
+  try {
+    const filterOptions: any = {
+      id: taskId
+    };
+    if (role === Roles.Employee) filterOptions.employeeId = id;
+    
+    const task = await Task.findOne({
+     where: {
+      ...filterOptions
+     }
+    });
+
+    if(!task){
+      throw new NotFoundError()
+    }
+
+    if (role === Roles.Project) {
+      const manager = await getEmployee(id);
+      if(!manager){
+        throw new BadRequestError("Manager of the task project doesn't exist");
+      }
+
+      if(!manager.projectId.includes(task.projectId)){
+        throw new ForbiddenError();
+      }
+    }
+
+    return sanitizeTaskData(task);
+  } catch (error) {
+    throw error;
+  }
+}
+
 export default {
   createTask,
   getAllTasks,
+  getTask,
   buildTask,
   sanitizeTaskData,
 };

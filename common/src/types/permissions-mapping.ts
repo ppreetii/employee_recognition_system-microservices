@@ -15,6 +15,7 @@ export const EmployeeMapping = [
   TaskActions.CreateTask,
   TaskActions.GetTaskById,
   TaskActions.GetTasks,
+  TaskActions.UpdateTask,
   TaskActions.DeleteTask,
 ];
 
