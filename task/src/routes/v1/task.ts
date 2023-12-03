@@ -35,4 +35,11 @@ router.get(
   taskController.getTask
 );
 
+router.delete(
+  `${API.TASK_ID}`,
+  requireAuth,
+  hasPermissions(TaskActions.DeleteTask),
+  taskController.deleteTask
+);
+
 export { router as taskRoutes };

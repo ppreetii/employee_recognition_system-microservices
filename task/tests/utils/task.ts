@@ -20,8 +20,8 @@ function getTaskObject(data:any){
     const task: TaskAttrs = {
       summary: "Test Task",
       description: "Test Description",
-      employeeId: data.employeeId ?? new mongoose.Types.ObjectId().toHexString(),
-      projectId: data.projectId ?? new mongoose.Types.ObjectId().toHexString(),
+      employeeId: data?.employeeId ?? new mongoose.Types.ObjectId().toHexString(),
+      projectId: data?.projectId ?? new mongoose.Types.ObjectId().toHexString(),
     }
 
     return task;

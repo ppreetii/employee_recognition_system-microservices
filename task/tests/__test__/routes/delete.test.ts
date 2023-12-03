@@ -12,8 +12,8 @@ import config from "../../../src/configs/config";
 
 const baseUrl = `${API.BASE_URL}${API.TASK}`;
 
-describe(`Get A Task By Id SUCCESS Test cases: GET ${baseUrl}${API.TASK_ID}`, () => {
-  it("Return 200 with task info when Project role gets a task for a project s/he is managing", async () => {
+describe(`Delete A Task By Id SUCCESS Test cases: DELETE ${baseUrl}${API.TASK_ID}`, () => {
+  it("Return 204 when Project role deletes a task for a project s/he is managing", async () => {
     const task = await createTask({
       projectId: mockEmpData.projectId,
     });
@@ -23,46 +23,40 @@ describe(`Get A Task By Id SUCCESS Test cases: GET ${baseUrl}${API.TASK_ID}`, ()
       .reply(200, mockEmpData.managerData);
 
     const res = await request(app)
-      .get(`${baseUrl}/${task.id}`)
+      .delete(`${baseUrl}/${task.id}`)
       .set("Cookie", global.signin(Roles.Project, mockEmpData.managerData.id))
-      .expect(200);
+      .expect(204);
 
     expect(mockAxios.history.get[0].url).toEqual(
       `${config.employeeURL!}/${mockEmpData.managerData.id}`
     );
 
-    expect(res.body.id).toBe(task.id);
-    expect(res.body.projectId).toBe(mockEmpData.projectId);
-
-    mockAxios.restore();
+    mockAxios.reset();
   });
 
-  it("Return 200 with task info when Employee role gets his/her own task", async () => {
+  it("Return 204 when Employee role deletes his/her own task", async () => {
     const employeeId = mockData.id;
     const task = await createTask({
       employeeId,
     });
 
-    const res = await request(app)
-      .get(`${baseUrl}/${task.id}`)
+    return request(app)
+      .delete(`${baseUrl}/${task.id}`)
       .set("Cookie", global.signin(Roles.Employee, employeeId))
-      .expect(200);
-
-    expect(res.body.id).toBe(task.id);
-    expect(res.body.employeeId).toBe(employeeId);
+      .expect(204);
   });
 });
 
-describe(`Get A Task By Id FAILURE Test cases: GET ${baseUrl}${API.TASK_ID}`, () => {
+describe(`Delete A Task By Id FAILURE Test cases: DELETE ${baseUrl}${API.TASK_ID}`, () => {
   it("Returns 403 for Organization Role", async () => {
     return request(app)
-      .get(`${baseUrl}/1`)
+      .delete(`${baseUrl}/1`)
       .set("Cookie", global.signin(Roles.Organization))
       .expect(403);
   });
 
   it("Returns 401 if not logged in", async () => {
-    return request(app).get(`${baseUrl}/1`).expect(401);
+    return request(app).delete(`${baseUrl}/1`).expect(401);
   });
 
   it("Returns 404 if task doesnot exist", async () => {
@@ -72,8 +66,8 @@ describe(`Get A Task By Id FAILURE Test cases: GET ${baseUrl}${API.TASK_ID}`, ()
       .expect(404);
   });
 
-  it("Returns 403 if a manager tries to access task info of another manager's project", async () => {
-    const task = await createTask();
+  it("Returns 403 if a manager tries to delete task of another manager's project", async () => {
+    const task = await createTask(); //task created with different manager
 
     const mockAxios = new MockAdapter(axios);
     mockAxios
@@ -81,28 +75,13 @@ describe(`Get A Task By Id FAILURE Test cases: GET ${baseUrl}${API.TASK_ID}`, ()
       .reply(200, mockEmpData.managerData);
 
     const res = await request(app)
-      .get(`${baseUrl}/${task.id}`)
+      .delete(`${baseUrl}/${task.id}`)
       .set("Cookie", global.signin(Roles.Project, mockEmpData.managerData.id))
       .expect(403);
 
+    expect(mockAxios.history.get[0].url).toEqual(
+      `${config.employeeURL!}/${mockEmpData.managerData.id}`
+    );
     mockAxios.restore();
   });
-  
-  //TODO: Check this scenerio again
-  xit("Returns 400 if a manager of the project of which task is retrieved, is not found", async () => {
-    const task = await createTask();
-
-    const mockAxios = new MockAdapter(axios);
-    mockAxios
-      .onGet(`${config.employeeURL!}/${mockEmpData.managerData.id}`)
-      .reply(400, {message: 'manager not found'});
-
-    const res = await request(app)
-      .get(`${baseUrl}/${task.id}`)
-      .set("Cookie", global.signin(Roles.Project, mockEmpData.managerData.id))
-      .expect(400);
-
-    mockAxios.restore();
-  });
-  
 });

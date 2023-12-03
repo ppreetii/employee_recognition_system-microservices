@@ -1,4 +1,9 @@
-import { BadRequestError, ForbiddenError, NotFoundError, Roles, formatDateIST } from "@reward-sys/common";
+import {
+  ForbiddenError,
+  NotFoundError,
+  Roles,
+  formatDateIST,
+} from "@reward-sys/common";
 import axios from "axios";
 import https from "https";
 
@@ -122,7 +127,7 @@ async function getEmployee(loginId: string) {
         rejectUnauthorized: false,
       }),
     });
-    
+
     const { data } = await instance.get(`${config.employeeURL!}/${loginId}`, {
       headers: {
         "x-api-key": config.apiKey,
@@ -135,35 +140,70 @@ async function getEmployee(loginId: string) {
   }
 }
 
-const getTask = async (role: string, id: string, taskId: string) =>{
+const getTask = async (role: string, id: string, taskId: string) => {
   try {
     const filterOptions: any = {
-      id: taskId
+      id: taskId,
     };
     if (role === Roles.Employee) filterOptions.employeeId = id;
-    
+
     const task = await Task.findOne({
-     where: {
-      ...filterOptions
-     }
+      where: {
+        ...filterOptions,
+      },
     });
 
-    if(!task){
-      throw new NotFoundError()
+    if (!task) {
+      throw new NotFoundError();
     }
 
     if (role === Roles.Project) {
-      const manager = await getEmployee(id);
-      if(!manager){
-        throw new BadRequestError("Manager of the task project doesn't exist");
-      }
-
-      if(!manager.projectId.includes(task.projectId)){
+      const manager = await isManager(id, task.projectId);
+      if (!manager) {
         throw new ForbiddenError();
       }
     }
 
     return sanitizeTaskData(task);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const deleteTask = async (role: string, id: string, taskId: string) => {
+  try {
+    const filterOptions: any = {
+      id: taskId,
+    };
+    if (role === Roles.Employee) filterOptions.employeeId = id;
+
+    const task = await Task.findOne({
+      where: {
+        ...filterOptions,
+      },
+    });
+
+    if (!task) {
+      throw new NotFoundError();
+    }
+
+    if (role === Roles.Project) {
+      const manager = await isManager(id, task.projectId);
+      if (!manager) {
+        throw new ForbiddenError();
+      }
+    }
+
+    await task.destroy();
+  } catch (error) {
+    throw error;
+  }
+};
+
+async function isManager(managerId: string, taskProjectId: string) {
+  try {
+    const manager = await getEmployee(managerId);
+    return manager?.projectId.includes(taskProjectId);
   } catch (error) {
     throw error;
   }
@@ -173,6 +213,7 @@ export default {
   createTask,
   getAllTasks,
   getTask,
+  deleteTask,
   buildTask,
   sanitizeTaskData,
 };
