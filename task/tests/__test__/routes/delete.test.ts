@@ -5,7 +5,7 @@ import MockAdapter from "axios-mock-adapter";
 import { app } from "../../../src/app";
 import { API } from "../../../src/constants/api";
 import { Roles } from "@reward-sys/common";
-import { createTask } from "../../utils/task";
+import { createTask, getTask } from "../../utils/task";
 import mockEmpData from "../../data/employee";
 import mockData from "../../data/task";
 import config from "../../../src/configs/config";
@@ -22,7 +22,7 @@ describe(`Delete A Task By Id SUCCESS Test cases: DELETE ${baseUrl}${API.TASK_ID
       .onGet(`${config.employeeURL!}/${mockEmpData.managerData.id}`)
       .reply(200, mockEmpData.managerData);
 
-    const res = await request(app)
+    await request(app)
       .delete(`${baseUrl}/${task.id}`)
       .set("Cookie", global.signin(Roles.Project, mockEmpData.managerData.id))
       .expect(204);
@@ -32,6 +32,9 @@ describe(`Delete A Task By Id SUCCESS Test cases: DELETE ${baseUrl}${API.TASK_ID
     );
 
     mockAxios.reset();
+
+    const removedTask = await getTask(task.id);
+    expect(removedTask).toBe(null);
   });
 
   it("Return 204 when Employee role deletes his/her own task", async () => {
@@ -40,10 +43,13 @@ describe(`Delete A Task By Id SUCCESS Test cases: DELETE ${baseUrl}${API.TASK_ID
       employeeId,
     });
 
-    return request(app)
+    await request(app)
       .delete(`${baseUrl}/${task.id}`)
       .set("Cookie", global.signin(Roles.Employee, employeeId))
       .expect(204);
+
+    const removedTask = await getTask(task.id);
+    expect(removedTask).toBe(null);
   });
 });
 
@@ -74,7 +80,7 @@ describe(`Delete A Task By Id FAILURE Test cases: DELETE ${baseUrl}${API.TASK_ID
       .onGet(`${config.employeeURL!}/${mockEmpData.managerData.id}`)
       .reply(200, mockEmpData.managerData);
 
-    const res = await request(app)
+    await request(app)
       .delete(`${baseUrl}/${task.id}`)
       .set("Cookie", global.signin(Roles.Project, mockEmpData.managerData.id))
       .expect(403);

@@ -16,6 +16,11 @@ export const createTask = async (data?:any) => {
   }
 };
 
+export const getTask = async (id: number) => {
+  const task = await Task.findByPk(id);
+  return task;
+} 
+
 function getTaskObject(data:any){
     const task: TaskAttrs = {
       summary: "Test Task",

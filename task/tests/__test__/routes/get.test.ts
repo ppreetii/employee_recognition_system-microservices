@@ -80,7 +80,7 @@ describe(`Get A Task By Id FAILURE Test cases: GET ${baseUrl}${API.TASK_ID}`, ()
       .onGet(`${config.employeeURL!}/${mockEmpData.managerData.id}`)
       .reply(200, mockEmpData.managerData);
 
-    const res = await request(app)
+    await request(app)
       .get(`${baseUrl}/${task.id}`)
       .set("Cookie", global.signin(Roles.Project, mockEmpData.managerData.id))
       .expect(403);
@@ -97,7 +97,7 @@ describe(`Get A Task By Id FAILURE Test cases: GET ${baseUrl}${API.TASK_ID}`, ()
       .onGet(`${config.employeeURL!}/${mockEmpData.managerData.id}`)
       .reply(400, {message: 'manager not found'});
 
-    const res = await request(app)
+    await request(app)
       .get(`${baseUrl}/${task.id}`)
       .set("Cookie", global.signin(Roles.Project, mockEmpData.managerData.id))
       .expect(400);
