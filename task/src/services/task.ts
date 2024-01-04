@@ -7,7 +7,7 @@ import {
 import axios from "axios";
 import https from "https";
 
-import { TaskAttrs, TaskRec } from "../types/task";
+import { TaskAttrs, TaskRec, TaskUpdateAttrs } from "../types/task";
 import Task from "../db/models/task";
 import { COMMON } from "../constants/common";
 import config from "../configs/config";
@@ -15,7 +15,7 @@ import { Op } from "sequelize";
 
 const createTask = async (data: TaskAttrs) => {
   try {
-    const task = new Task(buildTask(data)); //TODO: make build method of Task model
+    const task = new Task(buildTask(data));
     await task.save();
     return sanitizeTaskData(task);
   } catch (error) {
@@ -209,6 +209,80 @@ async function isManager(managerId: string, taskProjectId: string) {
   }
 }
 
+const updateTask = async (
+  role: string,
+  id: string,
+  taskId: string,
+  taskData: TaskUpdateAttrs
+) => {
+  try {
+    const task = await Task.findByPk(taskId);
+    if (!task) {
+      throw new NotFoundError();
+    }
+
+    task.summary = taskData.summary;
+    task.description = taskData.description;
+    if (task.status !== taskData.status) {
+      updateTaskDatesByStatus(taskData.status, task);
+    }
+
+    if (role === Roles.Project) {
+      updateByProject(taskData, task);
+    }
+
+    await task.save();
+
+    return sanitizeTaskData(task);
+  } catch (error) {
+    throw error;
+  }
+};
+
+function updateTaskDatesByStatus(status: string, task: TaskRec) {
+  task.status = status;
+  switch (status) {
+    case COMMON.TASK_STATUS.INPROGRESS:
+      task.date_started = formatDateIST(new Date());
+      break;
+
+    case COMMON.TASK_STATUS.DONE:
+      task.date_completed = formatDateIST(new Date());
+      break;
+
+    default:
+      task.status = COMMON.TASK_STATUS.TODO;
+  }
+}
+
+async function updateByProject( //TODO: there is change in design, this function will be completed after that
+  taskData: TaskUpdateAttrs,
+  task: TaskRec,
+  loginId?: string
+) {
+  try {
+    if (taskData.deadline) {
+      task.deadline = taskData.deadline;
+    }
+    if (taskData.employeeId) {
+      const employee = await findEmployee(taskData.employeeId);
+
+      if (employee) task.employeeId = taskData.employeeId;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function findEmployee(empId: string) {
+  try {
+    const emp = await getEmployee(empId);
+    return emp;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export default {
   createTask,
   getAllTasks,
@@ -216,4 +290,5 @@ export default {
   deleteTask,
   buildTask,
   sanitizeTaskData,
+  updateTask,
 };

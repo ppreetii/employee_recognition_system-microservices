@@ -12,5 +12,6 @@ export interface NewEmployeeEvent {
     email: string;
     employeeId: mongoose.Types.ObjectId;
     name?: string;
+    designation?: string;
   };
 }

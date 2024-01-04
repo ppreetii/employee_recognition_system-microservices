@@ -40,3 +40,11 @@ export interface TaskRec {
   date_started: string;
   date_completed: string;
 }
+
+export interface TaskUpdateAttrs {
+  summary: string;
+  description: string;
+  status: string;
+  employeeId?: string;
+  deadline?: string;
+}

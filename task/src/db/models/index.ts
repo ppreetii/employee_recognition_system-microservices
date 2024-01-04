@@ -1,13 +1,15 @@
 import Task from "./task";
+import Employee from "./employee";
 import SequelizeConnection from "../connection";
 
 const isDev = process.env.NODE_ENV === 'development';
-const isTest = process.env.NODE_ENV !== 'test';
+const isTest = process.env.NODE_ENV === 'test';
 
 const sequelize = SequelizeConnection.getInstance();
 
 const db = async () => Promise.all([
-    Task.sync({ alter: isDev || isTest })
+    Task.sync({ alter: isDev || isTest }),
+    Employee.sync({ alter: isDev || isTest }),
 ]);
 
 db.sequelize = sequelize;

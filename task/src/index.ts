@@ -1,3 +1,5 @@
+import { rabbitmq } from "@reward-sys/rabbitmq";
+
 import { app } from "./app";
 import config from "./configs/config";
 import SequelizeConnection from "./db/connection";
@@ -11,6 +13,10 @@ const checkEnvironmentVars = () => {
 const startServer = async () => {
   try {
     checkEnvironmentVars();
+
+    await rabbitmq.connect(config.rabbitmqUrl);
+    console.log("Connected to RabbitMQ");
+
     const db = await SequelizeConnection.connect();
     await db.sync();
     console.log("Database connected!");
@@ -18,6 +24,7 @@ const startServer = async () => {
       console.log(`Task Service Listening on : ${config.port}`);
     });
   } catch (error) {
+    console.log(error)
     throw error;
   }
 };

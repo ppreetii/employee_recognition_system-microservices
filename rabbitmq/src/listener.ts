@@ -50,6 +50,7 @@ export abstract class Listener<T extends Event> {
         }
       );
     } catch (error) {
+      console.log(error);
       throw error;
     }
   }

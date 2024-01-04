@@ -4,4 +4,5 @@ export const Exchange = {
   Reward: "reward_exchange",
   Project: "project_exchange",
   Auth: "auth_exchange",
+  Email: "email_exchange"
 };

@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import config from "../configs/config";
 import { DatabaseConnectionError } from "@reward-sys/common";
+import {COMMON} from "../constants/common";
 
 const environment = process.env.NODE_ENV;
 
@@ -24,11 +25,7 @@ class SequelizeConnection {
           dialect: "postgres",
           host: config.dbHost,
           logging: false,
-          pool: {
-            max: 30,
-            acquire: 60000,
-            idle: 30000,
-          },
+          pool: COMMON.DB_POOL
         }
       );
     }

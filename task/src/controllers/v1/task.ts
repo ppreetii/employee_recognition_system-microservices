@@ -49,9 +49,24 @@ const deleteTask = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const updateTask = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const role = req.currentUser?.role!;
+    const id = req.currentUser?.id!;
+    const taskId = req.params.taskId;
+    const taskData = req.body;
+    const updatedTask = await taskService.updateTask(role,id,taskId,taskData);
+
+    res.json(updatedTask);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
     createTask,
     getAllTasks,
     getTask,
-    deleteTask
+    deleteTask,
+    updateTask
 }

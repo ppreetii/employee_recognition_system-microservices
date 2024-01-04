@@ -7,7 +7,7 @@ import {
 } from "@reward-sys/common";
 
 import { API } from "../../constants/api";
-import { createTaskSchema } from "../../validation-schemas/task";
+import { createTaskSchema, updateTaskSchema} from "../../validation-schemas/task";
 
 import taskController from "../../controllers/v1/task";
 
@@ -41,5 +41,13 @@ router.delete(
   hasPermissions(TaskActions.DeleteTask),
   taskController.deleteTask
 );
+
+router.put(
+  `${API.TASK_ID}`,
+  requireAuth,
+  hasPermissions(TaskActions.DeleteTask),
+  validateRequest(updateTaskSchema),
+  taskController.updateTask
+)
 
 export { router as taskRoutes };

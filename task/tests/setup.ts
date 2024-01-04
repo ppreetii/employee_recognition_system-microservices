@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
+import { rabbitmq } from "./__mocks__/rabbitmq";
 import SequelizeConnection from "../src/db/connection";
 import config from "../src/configs/config";
 
@@ -9,6 +10,15 @@ declare global {
 }
 
 let sequelize: any;
+
+// mock the functions
+jest.mock("@reward-sys/rabbitmq", () => {
+  const originalModule = jest.requireActual("@reward-sys/rabbitmq");
+  return {
+    ...originalModule,
+    rabbitmq
+  };
+});
 
 beforeAll(async () => {
   try {
