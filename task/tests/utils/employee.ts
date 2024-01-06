@@ -1,21 +1,18 @@
-import mongoose from "mongoose";
-
 import Employee  from "../../src/db/models/employee";
+import empMockData from "../data/employee";
+import { EmpAttrs } from "../../src/types/employee";
 
-export const createEmployee = async (is_active?: number) => {
-    const employee = new Employee({
-      id: new mongoose.Types.ObjectId().toHexString(),
-      email: "test@test.com",
-      name: "test employee 1",
-      designation: "test designation"
-    });
-    
+export const createEmployee = async (is_active?: number, is_manager: boolean = false) => {
+    let empData:EmpAttrs = is_manager ? empMockData.managerData : empMockData.empData;
+
+    const employee = new Employee(empData);
+
     if (is_active === 0) {
       employee.is_active = 0;
     }
-  
+ 
     await employee.save();
   
     return employee;
-  };
+};
   

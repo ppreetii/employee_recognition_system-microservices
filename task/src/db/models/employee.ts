@@ -9,6 +9,7 @@ class Employee extends Model<EmpModel, EmpAttrs> implements EmpRec {
   public name!: string;
   public email!: string;
   public designation!: string;
+  public projectId!: string[];
   public is_active!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -33,10 +34,14 @@ Employee.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    projectId: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      defaultValue: []
+    },
     is_active: {
       type: DataTypes.INTEGER,
       defaultValue: 1,
-    },
+    }
   },
   {
     sequelize: sequelize.getInstance(),

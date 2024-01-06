@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 const projectId = "65187956ee51d87d8f454181";
 
 const managerData = {
@@ -13,7 +15,15 @@ const managerData = {
   ],
 };
 
+const empData = {
+  id: new mongoose.Types.ObjectId().toHexString(),
+  email: "test@test.com",
+  name: "test employee 1",
+  designation: "test designation"
+}
+
 export default {
     projectId,
-    managerData
+    managerData,
+    empData
 }

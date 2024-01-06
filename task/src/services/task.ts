@@ -4,14 +4,11 @@ import {
   Roles,
   formatDateIST,
 } from "@reward-sys/common";
-import axios from "axios";
-import https from "https";
 
 import { TaskAttrs, TaskRec, TaskUpdateAttrs } from "../types/task";
 import Task from "../db/models/task";
 import Employee from "../db/models/employee";
 import { COMMON } from "../constants/common";
-import config from "../configs/config";
 import { Op } from "sequelize";
 
 const createTask = async (data: TaskAttrs) => {
@@ -128,21 +125,14 @@ const getAllTasks = async (role: string, id: string, page: number) => {
   }
 };
 
-async function getEmployee(loginId: string) {
+async function getEmployee(empId: string) {
   try {
-    const instance = axios.create({
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
-    });
+    const employee = await Employee.findByPk(empId);
+    if(!employee){
+      throw new NotFoundError("Employee Not Found");
+    }
 
-    const { data } = await instance.get(`${config.employeeURL!}/${loginId}`, {
-      headers: {
-        "x-api-key": config.apiKey,
-      },
-    });
-
-    return data;
+    return employee;
   } catch (error) {
     throw error;
   }
@@ -273,7 +263,7 @@ async function updateByProject( //TODO: there is change in design, this function
       task.deadline = taskData.deadline;
     }
     if (taskData.employeeId) {
-      const employee = await findEmployee(taskData.employeeId);
+      const employee = await getEmployee(taskData.employeeId);
 
       if (employee) task.employeeId = taskData.employeeId;
     }
@@ -282,14 +272,14 @@ async function updateByProject( //TODO: there is change in design, this function
   }
 }
 
-async function findEmployee(empId: string) {
-  try {
-    const emp = await getEmployee(empId);
-    return emp;
-  } catch (error) {
-    throw error;
-  }
-}
+// async function findEmployee(empId: string) {
+//   try {
+//     const emp = await getEmployee(empId);
+//     return emp;
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 export default {
   createTask,

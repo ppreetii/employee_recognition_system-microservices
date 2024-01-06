@@ -6,7 +6,7 @@ import {
   NewEmployeeEvent,
   ExchangeTypes,
   Exchange,
-  Queue
+  Queue,
 } from "@reward-sys/rabbitmq";
 
 import Employee from "../../db/models/employee";
@@ -18,22 +18,34 @@ export class NewEmployeeListener extends Listener<NewEmployeeEvent> {
   readonly exchangeType = ExchangeTypes.Direct;
   protected retry: number = 0;
 
-  async onMessage(data: { email: string; employeeId: mongoose.Types.ObjectId; name?: string | undefined; designation?: string | undefined; }, channel: Channel, msg: Message) {
+  async onMessage(
+    data: {
+      email: string;
+      employeeId: mongoose.Types.ObjectId;
+      name?: string | undefined;
+      designation?: string | undefined;
+      projectId?: string[] | undefined;
+    },
+    channel: Channel,
+    msg: Message
+  ){
     try {
-      if(!data.name){ //we don't save data when auth publish the message, it is meant for only employee service
+      if (!data.designation) {
+        //we don't save data when auth publish the message, it is meant for only employee service
         return channel.ack(msg);
       }
-      const employee = Employee.build({
-        id: data.employeeId,
+      const employee = new Employee({
+        id: data.employeeId.toString(),
         email: data.email,
         name: data.name!,
-        designation: data.designation!
+        designation: data.designation!,
+        projectId: data.projectId!
       });
 
       await employee.save();
 
       channel.ack(msg);
-      console.log("New Employee Msg Processed Successfully in Task Srv")
+      console.log("New Employee Msg Processed Successfully in Task Srv");
     } catch (error: any) {
       throw error;
     }

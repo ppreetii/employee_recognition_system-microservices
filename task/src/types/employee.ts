@@ -6,6 +6,7 @@ export interface EmpAttrs {
   name: string;
   email: string;
   designation: string;
+  projectId?: string[];
 }
 
 //interface that describes attributes Employee Model has
@@ -14,6 +15,7 @@ export interface EmpModel {
   name: string;
   email: string;
   designation: string;
+  projectId: string[];
   is_active: number;
   createdAt?: Date;
   updatedAt?: Date;
@@ -25,5 +27,6 @@ export interface EmpRec {
   name: string;
   email: string;
   designation: string;
+  projectId: string[];
   is_active: number;
 }

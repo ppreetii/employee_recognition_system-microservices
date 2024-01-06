@@ -42,7 +42,8 @@ const createEmployee = async (data: EmployeeAttrs) => {
         email: employee.email,
         employeeId: employee.id,
         name: employee.name,
-        designation: employee.designation
+        designation: employee.designation,
+        projectId: data.projectId
       },
       [Queue.Project, Queue.Task]
     );

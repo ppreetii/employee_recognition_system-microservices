@@ -1079,9 +1079,9 @@
     redis "^4.6.10"
 
 "@reward-sys/rabbitmq@^1.0.3":
-  version "1.0.10"
-  resolved "https://registry.npmjs.org/@reward-sys/rabbitmq/-/rabbitmq-1.0.10.tgz"
-  integrity sha512-EJZn+huOi0BZv2XsLNVUCIphWXSaKYeyGfMsEnJJlM1TFT4/Lq0TRizrPnwyjm/NpFV2gjlSYeJMy/O+fGjbEw==
+  version "1.0.11"
+  resolved "https://registry.npmjs.org/@reward-sys/rabbitmq/-/rabbitmq-1.0.11.tgz"
+  integrity sha512-T+GkNjw8C7n3AakU4lJke1Sx+ljY+9m9GAH9Wm3jw1HrDfSjw22JfQAiieuLCCvkSaP+vdy1Xd7Dux5MvjinRQ==
   dependencies:
     "@types/amqplib" "^0.10.3"
     "@types/dotenv" "^8.2.0"

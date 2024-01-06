@@ -13,5 +13,6 @@ export interface NewEmployeeEvent {
     employeeId: mongoose.Types.ObjectId;
     name?: string;
     designation?: string;
+    projectId?: string[];
   };
 }
