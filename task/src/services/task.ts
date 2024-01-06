@@ -9,13 +9,15 @@ import https from "https";
 
 import { TaskAttrs, TaskRec, TaskUpdateAttrs } from "../types/task";
 import Task from "../db/models/task";
+import Employee from "../db/models/employee";
 import { COMMON } from "../constants/common";
 import config from "../configs/config";
 import { Op } from "sequelize";
 
 const createTask = async (data: TaskAttrs) => {
   try {
-    const task = new Task(buildTask(data));
+    const taskData = await buildTask(data)
+    const task = new Task(taskData);
     await task.save();
     return sanitizeTaskData(task);
   } catch (error) {
@@ -23,19 +25,25 @@ const createTask = async (data: TaskAttrs) => {
   }
 };
 
-function buildTask(data: TaskAttrs) {
+async function buildTask(data: TaskAttrs) {
   const taskData: TaskAttrs = {
     summary: data?.summary,
     projectId: data?.projectId,
   };
 
+  if (data?.employeeId) {
+    const employee = await Employee.findByPk(data.employeeId);
+    if(!employee){
+      throw new NotFoundError("Employee Not Found");
+    }
+    taskData.employeeId = data.employeeId;
+    taskData.date_assigned = formatDateIST(new Date());
+  }
+
   if (data?.description) {
     taskData.description = data.description;
   }
-  if (data?.employeeId) {
-    taskData.employeeId = data.employeeId; //TODO: Find a way to check if employee still exists.
-    taskData.date_assigned = formatDateIST(new Date());
-  }
+ 
   if (data?.deadline) {
     taskData.deadline = data.deadline;
   }
@@ -154,7 +162,7 @@ const getTask = async (role: string, id: string, taskId: string) => {
     });
 
     if (!task) {
-      throw new NotFoundError();
+      throw new NotFoundError("Task Not Found");
     }
 
     if (role === Roles.Project) {
@@ -184,7 +192,7 @@ const deleteTask = async (role: string, id: string, taskId: string) => {
     });
 
     if (!task) {
-      throw new NotFoundError();
+      throw new NotFoundError("Task Not Found");
     }
 
     if (role === Roles.Project) {
@@ -218,7 +226,7 @@ const updateTask = async (
   try {
     const task = await Task.findByPk(taskId);
     if (!task) {
-      throw new NotFoundError();
+      throw new NotFoundError("Task Not Found");
     }
 
     task.summary = taskData.summary;

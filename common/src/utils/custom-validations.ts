@@ -1,4 +1,7 @@
-export const isValidDate = (value: String, helpers: any) => {
+import {isValidObjectId} from "mongoose";
+import { CustomHelpers } from "joi";
+
+export const isValidDate = (value: String, helpers: CustomHelpers) => {
   // Date format: YYYY-MM-DD
   const datePattern = /^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
 
@@ -29,3 +32,10 @@ export const isValidDate = (value: String, helpers: any) => {
   }
   return value;
 };
+
+export const isValidMongoId = (value: string, helpers: CustomHelpers) =>{
+  if(!isValidObjectId(value))
+  return helpers.error("any.invalid");
+
+  return value;
+}

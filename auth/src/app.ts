@@ -1,7 +1,7 @@
 import express from "express";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
-import { NotFoundError, errorHandler } from "@reward-sys/common";
+import { PageNotFoundError, errorHandler } from "@reward-sys/common";
 
 import { API } from "./constants/api";
 import { authRoutes } from "./routes/v1/auth";
@@ -20,7 +20,7 @@ app.use(
 app.use(`${API.BASE_URL}${API.AUTH}`, authRoutes);
 
 app.all("*", () => {
-  throw new NotFoundError();
+  throw new PageNotFoundError();
 });
 
 app.use(errorHandler);

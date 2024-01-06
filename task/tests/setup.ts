@@ -28,6 +28,7 @@ beforeAll(async () => {
       force: true
     });
   } catch (error) {
+    console.log(error);
     throw error;
   }
 });

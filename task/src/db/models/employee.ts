@@ -5,7 +5,7 @@ import sequelize from "../connection";
 import { EmpAttrs, EmpModel, EmpRec } from "../../types/employee";
 
 class Employee extends Model<EmpModel, EmpAttrs> implements EmpRec {
-  public id!: mongoose.Types.ObjectId;
+  public id!: string;
   public name!: string;
   public email!: string;
   public designation!: string;
@@ -34,7 +34,7 @@ Employee.init(
       allowNull: false,
     },
     is_active: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       defaultValue: 1,
     },
   },

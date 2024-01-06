@@ -4,28 +4,44 @@ import { app } from "../../../src/app";
 import { API } from "../../../src/constants/api";
 import mockData from "../../data/task";
 import { Roles } from "@reward-sys/common";
+import { createEmployee } from "../../utils/employee";
 
 const url = `${API.BASE_URL}${API.TASK}`;
 
 describe(`Create Task SUCCESS Test cases: POST ${url}`, () => {
   it("Return 201 when task is created successfully by Project role", async () => {
+    const employee = await createEmployee();
+    const empData = {
+      ...mockData.validReq,
+      employeeId: employee.id
+    }
     return request(app)
       .post(url)
-      .send(mockData.validReq)
+      .send(empData)
       .set("Cookie", global.signin(Roles.Project))
       .expect(201);
   });
 
   it("Return 201 when task is created successfully by Employee role", async () => {
+    const employee = await createEmployee();
+    const empData = {
+      ...mockData.validReq,
+      employeeId: employee.id
+    }
     return request(app)
       .post(url)
-      .send(mockData.validReq)
+      .send(empData)
       .set("Cookie", global.signin(Roles.Employee))
       .expect(201);
   });
 
   it("Returns 201 if task has no deadline but assignee", async () => {
-    const { deadline, ...rest } = mockData.validReq;
+    const employee = await createEmployee();
+    const empData = {
+      ...mockData.validReq,
+      employeeId: employee.id
+    }
+    const { deadline, ...rest } = empData;
     return request(app)
       .post(url)
       .send(rest)

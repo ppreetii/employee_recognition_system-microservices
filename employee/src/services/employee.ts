@@ -42,8 +42,9 @@ const createEmployee = async (data: EmployeeAttrs) => {
         email: employee.email,
         employeeId: employee.id,
         name: employee.name,
+        designation: employee.designation
       },
-      [Queue.Project]
+      [Queue.Project, Queue.Task]
     );
 
     return sanitizeEmpData(employee, true);
@@ -86,7 +87,7 @@ const getEmployeeById = async (
 
     const employee = await Employee.findById(empId);
     if (!employee) {
-      throw new NotFoundError();
+      throw new NotFoundError("Employee Not Found");
     }
 
     if (role === Roles.Project) {
@@ -118,7 +119,7 @@ const updateEmployee = async (
 
     const employee = await Employee.findById(empId);
     if (!employee) {
-      throw new NotFoundError();
+      throw new NotFoundError("Employee Not Found");
     }
 
     if (empId === loginId) {
@@ -144,7 +145,7 @@ const deleteEmployee = async (empId: string, role: string) => {
     const employee = await Employee.findById(empId);
 
     if (!employee) {
-      throw new NotFoundError();
+      throw new NotFoundError("Employee Not Found");
     }
 
     if (employee.is_active === 0) {

@@ -5,9 +5,8 @@ import Task from "../../src/db/models/task";
 import { TaskAttrs } from "../../src/types/task";
 
 export const createTask = async (data?:any) => {
-  const task = new Task(
-    taskSrv.buildTask(getTaskObject(data))
-  );
+  const taskData = await taskSrv.buildTask(getTaskObject(data));
+  const task = new Task(taskData);
   await task.save();
   return {
     id: task.id,
