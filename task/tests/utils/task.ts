@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 import taskSrv from "../../src/services/task";
 import Task from "../../src/db/models/task";
-import { TaskAttrs } from "../../src/types/task";
 
 export const createTask = async (data?: any) => {
   const taskData = await taskSrv.buildTask({

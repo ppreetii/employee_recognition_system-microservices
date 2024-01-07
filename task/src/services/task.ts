@@ -13,7 +13,7 @@ import { Op } from "sequelize";
 
 const createTask = async (data: TaskAttrs) => {
   try {
-    const taskData = await buildTask(data)
+    const taskData = await buildTask(data);
     const task = new Task(taskData);
     await task.save();
     return sanitizeTaskData(task);
@@ -21,73 +21,6 @@ const createTask = async (data: TaskAttrs) => {
     throw error;
   }
 };
-
-async function buildTask(data: TaskAttrs) {
-  const taskData: TaskAttrs = {
-    summary: data?.summary,
-    projectId: data?.projectId,
-  };
-
-  if (data?.employeeId) {
-    const employee = await Employee.findByPk(data.employeeId);
-    if(!employee){
-      throw new NotFoundError("Employee Not Found");
-    }
-    taskData.employeeId = data.employeeId;
-    taskData.date_assigned = formatDateIST(new Date());
-  }
-
-  if (data?.description) {
-    taskData.description = data.description;
-  }
- 
-  if (data?.deadline) {
-    taskData.deadline = data.deadline;
-  }
-
-  if (data?.status) {
-    setDate(data.status, taskData);
-  }
-
-  return taskData;
-}
-
-function setDate(
-  status: string = COMMON.TASK_STATUS.TODO,
-  taskData: TaskAttrs
-) {
-  let date = formatDateIST(new Date());
-  switch (status) {
-    case COMMON.TASK_STATUS.INPROGRESS:
-      taskData.date_started = date;
-      break;
-
-    case COMMON.TASK_STATUS.DONE:
-      taskData.date_completed = date;
-      break;
-  }
-
-  taskData.status = status;
-}
-
-function sanitizeTaskData(task: TaskRec) {
-  return {
-    id: task.id,
-    summary: task.summary,
-    description: task.description,
-    status: task.status,
-    employeeId: task.employeeId ?? null,
-    projectId: task.projectId ?? null,
-    deadline: task.deadline ? formatDateIST(task.deadline) : null,
-    date_assigned: task.date_assigned
-      ? formatDateIST(task.date_assigned)
-      : null,
-    date_started: task.date_started ? formatDateIST(task.date_started) : null,
-    date_completed: task.date_completed
-      ? formatDateIST(task.date_completed)
-      : null,
-  };
-}
 
 const getAllTasks = async (role: string, id: string, page: number) => {
   try {
@@ -124,19 +57,6 @@ const getAllTasks = async (role: string, id: string, page: number) => {
     throw error;
   }
 };
-
-async function getEmployee(empId: string) {
-  try {
-    const employee = await Employee.findByPk(empId);
-    if(!employee){
-      throw new NotFoundError("Employee Not Found");
-    }
-
-    return employee;
-  } catch (error) {
-    throw error;
-  }
-}
 
 const getTask = async (role: string, id: string, taskId: string) => {
   try {
@@ -198,16 +118,8 @@ const deleteTask = async (role: string, id: string, taskId: string) => {
   }
 };
 
-async function isManager(managerId: string, taskProjectId: string) {
-  try {
-    const manager = await getEmployee(managerId);
-    return manager?.projectId.includes(taskProjectId);
-  } catch (error) {
-    throw error;
-  }
-}
-
 const updateTask = async (
+  //TODO: there is change in design, this function will be completed after that
   role: string,
   id: string,
   taskId: string,
@@ -236,6 +148,95 @@ const updateTask = async (
     throw error;
   }
 };
+
+async function buildTask(data: TaskAttrs) {
+  const taskData: TaskAttrs = {
+    summary: data?.summary,
+    projectId: data?.projectId,
+  };
+
+  if (data?.employeeId) {
+    const employee = await Employee.findByPk(data.employeeId);
+    if (!employee) {
+      throw new NotFoundError("Employee Not Found");
+    }
+    taskData.employeeId = data.employeeId;
+    taskData.date_assigned = formatDateIST(new Date());
+  }
+
+  if (data?.description) {
+    taskData.description = data.description;
+  }
+
+  if (data?.deadline) {
+    taskData.deadline = data.deadline;
+  }
+
+  if (data?.status) {
+    setDate(data.status, taskData);
+  }
+
+  return taskData;
+}
+
+function setDate(
+  status: string = COMMON.TASK_STATUS.TODO,
+  taskData: TaskAttrs
+) {
+  let date = formatDateIST(new Date());
+  switch (status) {
+    case COMMON.TASK_STATUS.INPROGRESS:
+      taskData.date_started = date;
+      break;
+
+    case COMMON.TASK_STATUS.DONE:
+      taskData.date_completed = date;
+      break;
+  }
+
+  taskData.status = status;
+}
+
+function sanitizeTaskData(task: TaskRec) {
+  return {
+    id: task.id,
+    summary: task.summary,
+    description: task.description,
+    status: task.status,
+    employeeId: task.employeeId ?? null,
+    projectId: task.projectId ?? null,
+    deadline: task.deadline ? formatDateIST(task.deadline) : null,
+    date_assigned: task.date_assigned
+      ? formatDateIST(task.date_assigned)
+      : null,
+    date_started: task.date_started ? formatDateIST(task.date_started) : null,
+    date_completed: task.date_completed
+      ? formatDateIST(task.date_completed)
+      : null,
+  };
+}
+
+async function getEmployee(empId: string) {
+  try {
+    const employee = await Employee.findByPk(empId);
+    if (!employee) {
+      throw new NotFoundError("Employee Not Found");
+    }
+
+    return employee;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function isManager(managerId: string, taskProjectId: string) {
+  try {
+    const manager = await getEmployee(managerId);
+    return manager?.projectId.includes(taskProjectId);
+  } catch (error) {
+    throw error;
+  }
+}
 
 function updateTaskDatesByStatus(status: string, task: TaskRec) {
   task.status = status;
@@ -271,15 +272,6 @@ async function updateByProject( //TODO: there is change in design, this function
     throw error;
   }
 }
-
-// async function findEmployee(empId: string) {
-//   try {
-//     const emp = await getEmployee(empId);
-//     return emp;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
 
 export default {
   createTask,

@@ -1,6 +1,4 @@
 import request from "supertest";
-import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
 
 import { app } from "../../../src/app";
 import { API } from "../../../src/constants/api";
@@ -8,8 +6,6 @@ import { Roles } from "@reward-sys/common";
 import { createTask } from "../../utils/task";
 import { createEmployee } from "../../utils/employee";
 import mockEmpData from "../../data/employee";
-import mockData from "../../data/task";
-import config from "../../../src/configs/config";
 
 const baseUrl = `${API.BASE_URL}${API.TASK}`;
 
