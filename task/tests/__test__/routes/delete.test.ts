@@ -1,51 +1,39 @@
 import request from "supertest";
-import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
 
 import { app } from "../../../src/app";
 import { API } from "../../../src/constants/api";
 import { Roles } from "@reward-sys/common";
 import { createTask, getTask } from "../../utils/task";
+import { createEmployee } from "../../utils/employee";
 import mockEmpData from "../../data/employee";
-import mockData from "../../data/task";
-import config from "../../../src/configs/config";
 
 const baseUrl = `${API.BASE_URL}${API.TASK}`;
 
 describe(`Delete A Task By Id SUCCESS Test cases: DELETE ${baseUrl}${API.TASK_ID}`, () => {
   it("Return 204 when Project role deletes a task for a project s/he is managing", async () => {
+    const manager = await createEmployee(1, true);
     const task = await createTask({
-      projectId: mockEmpData.projectId,
+      projectId: mockEmpData.projectId
     });
-    const mockAxios = new MockAdapter(axios);
-    mockAxios
-      .onGet(`${config.employeeURL!}/${mockEmpData.managerData.id}`)
-      .reply(200, mockEmpData.managerData);
 
     await request(app)
       .delete(`${baseUrl}/${task.id}`)
-      .set("Cookie", global.signin(Roles.Project, mockEmpData.managerData.id))
+      .set("Cookie", global.signin(Roles.Project, manager.id))
       .expect(204);
-
-    expect(mockAxios.history.get[0].url).toEqual(
-      `${config.employeeURL!}/${mockEmpData.managerData.id}`
-    );
-
-    mockAxios.reset();
 
     const removedTask = await getTask(task.id);
     expect(removedTask).toBe(null);
   });
 
   it("Return 204 when Employee role deletes his/her own task", async () => {
-    const employeeId = mockData.id;
+    const employee = await createEmployee();
     const task = await createTask({
-      employeeId,
+      employeeId: employee.id
     });
 
     await request(app)
       .delete(`${baseUrl}/${task.id}`)
-      .set("Cookie", global.signin(Roles.Employee, employeeId))
+      .set("Cookie", global.signin(Roles.Employee, employee.id))
       .expect(204);
 
     const removedTask = await getTask(task.id);
@@ -73,21 +61,13 @@ describe(`Delete A Task By Id FAILURE Test cases: DELETE ${baseUrl}${API.TASK_ID
   });
 
   it("Returns 403 if a manager tries to delete task of another manager's project", async () => {
+    const manager2 = await createEmployee(1, false, true);
     const task = await createTask(); //task created with different manager
 
-    const mockAxios = new MockAdapter(axios);
-    mockAxios
-      .onGet(`${config.employeeURL!}/${mockEmpData.managerData.id}`)
-      .reply(200, mockEmpData.managerData);
-
-    await request(app)
+    const  res = await request(app)
       .delete(`${baseUrl}/${task.id}`)
-      .set("Cookie", global.signin(Roles.Project, mockEmpData.managerData.id))
+      .set("Cookie", global.signin(Roles.Project, manager2.id))
       .expect(403);
-
-    expect(mockAxios.history.get[0].url).toEqual(
-      `${config.employeeURL!}/${mockEmpData.managerData.id}`
-    );
-    mockAxios.restore();
+      
   });
 });

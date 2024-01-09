@@ -28,6 +28,9 @@ const getAllTasks = async (role: string, id: string, page: number) => {
     if (role === Roles.Employee) filterOptions.employeeId = id;
     if (role === Roles.Project) {
       const manager = await getEmployee(id);
+      if (!manager) {
+        throw new NotFoundError("Manager Not Found");
+      }
       filterOptions.projectId = {
         [Op.in]: manager?.projectId || [],
       };
@@ -219,10 +222,6 @@ function sanitizeTaskData(task: TaskRec) {
 async function getEmployee(empId: string) {
   try {
     const employee = await Employee.findByPk(empId);
-    if (!employee) {
-      throw new NotFoundError("Employee Not Found");
-    }
-
     return employee;
   } catch (error) {
     throw error;
@@ -232,6 +231,9 @@ async function getEmployee(empId: string) {
 async function isManager(managerId: string, taskProjectId: string) {
   try {
     const manager = await getEmployee(managerId);
+    if (!manager) {
+      throw new NotFoundError("Manager Not Found");
+    }
     return manager?.projectId.includes(taskProjectId);
   } catch (error) {
     throw error;
@@ -265,6 +267,9 @@ async function updateByProject( //TODO: there is change in design, this function
     }
     if (taskData.employeeId) {
       const employee = await getEmployee(taskData.employeeId);
+      if (!employee) {
+        throw new NotFoundError("Employee Not Found");
+      }
 
       if (employee) task.employeeId = taskData.employeeId;
     }

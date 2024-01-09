@@ -12,10 +12,9 @@ const baseUrl = `${API.BASE_URL}${API.TASK}`;
 describe(`Get All Tasks SUCCESS Test cases: GET ${baseUrl}`, () => {
   it("Return 200 with task list when Project role gets all tasks for all projects s/he is managing", async () => {
     const managerData = await createEmployee(1, true);
-    const empData = await createEmployee();
+
     const task = await createTask({
-      projectId: mockEmpData.projectId,
-      employeeId: empData.id
+      projectId: mockEmpData.projectId
     });
 
     const res = await request(app)

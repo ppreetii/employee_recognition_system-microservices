@@ -2,15 +2,15 @@ import mongoose from "mongoose";
 
 import taskSrv from "../../src/services/task";
 import Task from "../../src/db/models/task";
+import { createEmployee } from "./employee";
 
 export const createTask = async (data?: any) => {
-  const taskData = await taskSrv.buildTask({
+  const task = new Task({
     summary: "Test Task",
     description: "Test Description",
     employeeId: data?.employeeId ?? new mongoose.Types.ObjectId().toHexString(),
     projectId: data?.projectId ?? new mongoose.Types.ObjectId().toHexString(),
   });
-  const task = new Task(taskData);
   await task.save();
   return {
     id: task.id,

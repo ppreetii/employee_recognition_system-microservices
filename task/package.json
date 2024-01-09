@@ -37,7 +37,8 @@
     "testEnvironment": "node",
     "setupFilesAfterEnv": [
       "./tests/setup.ts"
-    ]
+    ],
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
   },
   "devDependencies": {
     "@types/jest": "^29.5.7",

@@ -1,6 +1,4 @@
 import request from "supertest";
-import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
 
 import { app } from "../../../src/app";
 import { API } from "../../../src/constants/api";
@@ -8,7 +6,6 @@ import { Roles } from "@reward-sys/common";
 import { createTask } from "../../utils/task";
 import { createEmployee } from "../../utils/employee";
 import mockEmpData from "../../data/employee";
-import config from "../../../src/configs/config";
 
 const baseUrl = `${API.BASE_URL}${API.TASK}`;
 
@@ -68,11 +65,9 @@ describe(`Get A Task By Id FAILURE Test cases: GET ${baseUrl}${API.TASK_ID}`, ()
 
   it("Returns 403 if a manager tries to access task info of another manager's project", async () => {
     const manager2 = await createEmployee(1, true, true);
-    const empData = await createEmployee();
 
     const task = await createTask({
       projectId: mockEmpData.projectId, //manager 1 project
-      employeeId: empData.id,
     });
 
     return request(app)
@@ -80,20 +75,13 @@ describe(`Get A Task By Id FAILURE Test cases: GET ${baseUrl}${API.TASK_ID}`, ()
       .set("Cookie", global.signin(Roles.Project, manager2.id)) //manager2 has loggedIn but accessing manager1 task
       .expect(403);
   });
-  //TODO: Check this scenerio again
-  xit("Returns 400 if a manager of the project of which task is retrieved, is not found", async () => {
+
+  it("Returns 404 if a manager of the project to which task belongs, is not found", async () => {
     const task = await createTask();
 
-    const mockAxios = new MockAdapter(axios);
-    mockAxios
-      .onGet(`${config.employeeURL!}/${mockEmpData.managerData.id}`)
-      .reply(400, { message: "manager not found" });
-
-    await request(app)
+    return request(app)
       .get(`${baseUrl}/${task.id}`)
       .set("Cookie", global.signin(Roles.Project, mockEmpData.managerData.id))
-      .expect(400);
-
-    mockAxios.restore();
+      .expect(404);
   });
 });
