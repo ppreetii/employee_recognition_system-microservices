@@ -69,9 +69,7 @@ const getTask = async (role: string, id: string, taskId: string) => {
     if (role === Roles.Employee) filterOptions.employeeId = id;
 
     const task = await Task.findOne({
-      where: {
-        ...filterOptions,
-      },
+      where: filterOptions,
     });
 
     if (!task) {
@@ -99,9 +97,7 @@ const deleteTask = async (role: string, id: string, taskId: string) => {
     if (role === Roles.Employee) filterOptions.employeeId = id;
 
     const task = await Task.findOne({
-      where: {
-        ...filterOptions,
-      },
+      where: filterOptions,
     });
 
     if (!task) {
@@ -122,14 +118,24 @@ const deleteTask = async (role: string, id: string, taskId: string) => {
 };
 
 const updateTask = async (
-  //TODO: there is change in design, this function will be completed after that
   role: string,
-  id: string,
+  loginId: string,
   taskId: string,
   taskData: TaskUpdateAttrs
 ) => {
   try {
-    const task = await Task.findByPk(taskId);
+    const filterOptions: any = {
+      id: taskId,
+    };
+
+    if (role === Roles.Employee) {
+      filterOptions.employeeId = loginId;
+    }
+
+    const task = await Task.findOne({
+      where: filterOptions,
+    });
+
     if (!task) {
       throw new NotFoundError("Task Not Found");
     }
@@ -141,6 +147,10 @@ const updateTask = async (
     }
 
     if (role === Roles.Project) {
+      const manager = await isManager(loginId, task.projectId);
+      if (!manager) {
+        throw new ForbiddenError();
+      }
       updateByProject(taskData, task);
     }
 
@@ -256,10 +266,9 @@ function updateTaskDatesByStatus(status: string, task: TaskRec) {
   }
 }
 
-async function updateByProject( //TODO: there is change in design, this function will be completed after that
+async function updateByProject(
   taskData: TaskUpdateAttrs,
-  task: TaskRec,
-  loginId?: string
+  task: TaskRec
 ) {
   try {
     if (taskData.deadline) {

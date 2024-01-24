@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-import taskSrv from "../../src/services/task";
 import Task from "../../src/db/models/task";
-import { createEmployee } from "./employee";
 
 export const createTask = async (data?: any) => {
   const task = new Task({

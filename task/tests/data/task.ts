@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { addDaysToDate } from "@reward-sys/common";
 
+import {COMMON} from '../../src/constants/common';
+
 const id = new mongoose.Types.ObjectId().toHexString();
 
 const today = new Date();
@@ -21,8 +23,24 @@ const invalidReq = {
     deadline: "12-01-2021"  //must be in yyyy-mm-dd
 }
 
+const updateTaskBody = {
+    summary: "Test Task Updated",
+    description: "Description Updated",
+    status : COMMON.TASK_STATUS.TODO
+}
+
+const invalidUpdateTask = {
+    summary: 1243,
+    description: 243 ,
+    employeeId: "12" ,
+    projectId: "12" ,
+    deadline: "12-01-2021"  //must be in yyyy-mm-dd
+}
+
 export default{
     validReq,
     invalidReq,
-    id
+    id,
+    updateTaskBody,
+    invalidUpdateTask
 }
