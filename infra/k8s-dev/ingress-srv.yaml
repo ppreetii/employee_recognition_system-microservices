@@ -31,4 +31,11 @@ spec:
                 name: project-srv
                 port:
                   number: 6000
+          - path: /api/v1/tasks/?(.*)
+            pathType: Prefix
+            backend:           
+              service:
+                name: task-srv
+                port:
+                  number: 7000
           

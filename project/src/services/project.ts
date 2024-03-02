@@ -79,7 +79,7 @@ const getProjectById = async (projectId: string) => {
     }); //TODO : populate client
 
     if (!project) {
-      throw new NotFoundError();
+      throw new NotFoundError("Project Not Found");
     }
 
     return project;
@@ -97,7 +97,7 @@ const updateProject = async (
   try {
     const project = await Project.findById(projectId);
     if (!project) {
-      throw new NotFoundError();
+      throw new NotFoundError("Project Not Found");
     }
 
     if (role === Roles.Organization) {
@@ -160,7 +160,7 @@ const deleteProject = async (projectId: string, empId: string) =>{
   try {
     const project = await Project.findById(projectId);
     if (!project) {
-      throw new NotFoundError();
+      throw new NotFoundError("Project Not Found");
     }
 
     project.is_active = 0;

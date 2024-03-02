@@ -20,7 +20,7 @@ app.use(
 app.use(`${API.BASE_URL}${API.EMPLOYEE}`, employeeRoutes);
 
 app.all("*", () => {
-  throw new NotFoundError();
+  throw new NotFoundError("Page Not Found");
 });
 
 app.use(errorHandler);

@@ -31,7 +31,7 @@ export class NewEmployeeListener extends Listener<NewEmployeeEvent> {
       await employee.save();
 
       channel.ack(msg);
-      console.log("New Employee Msg Processed successfully")
+      console.log("New Employee Msg Processed successfully  in Project Srv")
     } catch (error: any) {
       throw error;
     }

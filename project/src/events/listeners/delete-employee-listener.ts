@@ -25,7 +25,7 @@ export class DeleteEmployeeListener extends Listener<DeleteEmployeeEvent> {
       const employee = await Employee.findById(data.employeeId);
 
       if(!employee){
-        throw new NotFoundError();
+        throw new NotFoundError("Employee Not Found");
       }
 
       if(employee.is_active === 0){
@@ -38,7 +38,7 @@ export class DeleteEmployeeListener extends Listener<DeleteEmployeeEvent> {
 
       channel.ack(msg);
 
-      console.log("Delete Employee Msg Processed!")
+      console.log("Delete Employee Msg Processed in Project Srv!")
     } catch (error) {
       throw error;
     }

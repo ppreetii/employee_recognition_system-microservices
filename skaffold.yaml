@@ -8,15 +8,16 @@ build:
   local:
     push: false
   artifacts:
-    - image: preeti097/authorisation
+    - image: preeti097/authorisation #change with your image
       context: auth
       docker:
         dockerfile: Dockerfile
+        # noCache: true
       sync:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: preeti097/employee
+    - image: preeti097/employee #change with your image
       context: employee
       docker:
         dockerfile: Dockerfile
@@ -25,10 +26,20 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: preeti097/project
+    - image: preeti097/project #change with your image
       context: project
       docker:
         dockerfile: Dockerfile
+        # noCache: true
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    - image: preeti097/task #change with your image
+      context: task
+      docker:
+        dockerfile: Dockerfile
+        # noCache: true
       sync:
         manual:
           - src: "src/**/*.ts"

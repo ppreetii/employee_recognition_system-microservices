@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-postgres-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task-postgres
+  template:
+    metadata:
+      labels:
+        app: task-postgres
+    spec:
+      containers:
+      - name: task-postgres
+        image: postgres:16-alpine
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: task-db-user-secret
+              key: DB_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: task-db-password-secret
+              key: DB_PASSWORD
+        - name: POSTGRES_HOST
+          value: 'task-postgres-srv.default'
+        - name: POSTGRES_DB
+          value: 'task_dev' #change based on db name provided, if db = task, write task_dev for development environment
+         
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: task-postgres-srv
+spec:
+  selector:
+    app: task-postgres
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
