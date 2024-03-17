@@ -10,6 +10,7 @@ export default {
   dbPassword: process.env.DB_PASSWORD,
   dbName: process.env.DB_NAME,
   dbHost: process.env.DB_HOST,
+  dbDialect: process.env.DB_DIALECT,
   employeeURL: process.env.EMPLOYEE_URL,
   apiKey: process.env.API_KEY
 };
