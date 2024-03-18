@@ -6,5 +6,7 @@ export * from "./exhanges/exchange";
 export * from "./queues/queue";
 export * from "./events/employee/create-employee-event";
 export * from "./events/employee/delete-employee-event";
+export * from "./events/reward/fetch_reward-event";
 export * from "./types/event-type";
 export * from "./types/exchange-names";
+export * from "./types/reward-type";

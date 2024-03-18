@@ -1,4 +1,5 @@
 export enum RoutingKeys {
   NewEmployee = "new:employee",
-  DeleteEmployee = "delete:employee"
+  DeleteEmployee = "delete:employee",
+  RewardedEmployee = "reward:employee"
 }
