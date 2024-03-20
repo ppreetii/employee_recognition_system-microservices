@@ -10,4 +10,9 @@ export const COMMON = {
     acquire: 60000,
     idle: 30000,
   },
+  WEEKEND: {
+    SAT: 6,
+    SUN: 0,
+    MON: 1
+  }
 };

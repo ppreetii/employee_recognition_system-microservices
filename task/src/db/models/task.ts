@@ -3,6 +3,7 @@ import { DataTypes, Model } from "sequelize";
 import { COMMON } from "../../constants/common";
 import sequelize from "../connection";
 import { TaskAttrs,TaskModel, TaskRec } from "../../types/task";
+import Employee from "./employee";
 
 class Task extends Model<TaskModel, TaskAttrs> implements TaskRec{
   public id!: number;
@@ -27,9 +28,6 @@ Task.init(
       autoIncrement: true,
       allowNull: false,
       primaryKey: true,
-    },
-    employeeId: {
-      type: DataTypes.STRING,
     },
     projectId: {
       type: DataTypes.STRING,
@@ -72,5 +70,8 @@ Task.init(
   }
 );
 
+//defining relationships
+Task.belongsTo(Employee, { foreignKey: "employeeId" });
+Employee.hasMany(Task, { foreignKey: "employeeId" });
 
 export default Task;

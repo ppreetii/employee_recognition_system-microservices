@@ -35,3 +35,10 @@ const startServer = async () => {
 };
 
 startServer();
+
+process.on("SIGINT", async () => {
+  rabbitmq.client.close();
+});
+process.on("SIGTERM", async () => {
+  rabbitmq.client.close();
+});

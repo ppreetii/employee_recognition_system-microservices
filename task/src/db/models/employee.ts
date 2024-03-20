@@ -1,5 +1,4 @@
 import { DataTypes, Model } from "sequelize";
-import mongoose from "mongoose";
 
 import sequelize from "../connection";
 import { EmpAttrs, EmpModel, EmpRec } from "../../types/employee";

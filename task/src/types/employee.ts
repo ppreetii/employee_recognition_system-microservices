@@ -1,5 +1,3 @@
-import mongoose from "mongoose";
-
 //interface that describes attributes we give to Employee Model to create record
 export interface EmpAttrs {
   id: string;
