@@ -39,6 +39,7 @@ export class RewardEmployeeListener extends Listener<RewardEvent> {
       } else {
         employee = await getEmpOfMonth(date);
       }
+      //TODO: Add logic to update bonusStars, count of emp of day/week/month of winner in employee service 
       new WinnerEmployeePublisher(rabbitmq.client).publish(
         {
           type: data.type,

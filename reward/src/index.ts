@@ -1,4 +1,5 @@
 import { rabbitmq } from "@reward-sys/rabbitmq";
+import mongoose from "mongoose";
 
 import { app } from "./app";
 import config from "./configs/config";
@@ -22,6 +23,7 @@ const startServer = async () => {
 
     new WinnerEmployeeListener(rabbitmq.client).subscribe();
 
+    await mongoose.connect(config.mongoUrl!);
     console.log("Database connected!");
     app.listen(config.port, () => {
       console.log(`Reward Service Listening on : ${config.port}`);
