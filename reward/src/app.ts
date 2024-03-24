@@ -14,7 +14,7 @@ app.use(
     secure: false,
   })
 );
-app.use(`${API.BASE_URL}${API.REWARDS}`);
+// app.use(`${API.BASE_URL}${API.REWARDS}`);
 app.all("*", () => {
   throw new PageNotFoundError();
 });

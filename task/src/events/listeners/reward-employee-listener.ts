@@ -8,6 +8,7 @@ import {
   Exchange,
   Queue,
   Reward,
+  rabbitmq,
 } from "@reward-sys/rabbitmq";
 
 import {
@@ -16,11 +17,9 @@ import {
   getEmpOfMonth,
   getEmpOfWeek,
 } from "../../services/reward";
-import {
-  DayEmpObj,
-  MonthEmpObj,
-  WeekEmpObj,
-} from "../../types/reward";
+import { DayEmpObj, MonthEmpObj, WeekEmpObj } from "../../types/reward";
+
+import { WinnerEmployeePublisher } from "../publishers/winner-employee-publisher";
 
 export class RewardEmployeeListener extends Listener<RewardEvent> {
   readonly routingKey = RoutingKeys.RewardedEmployee;
@@ -29,11 +28,7 @@ export class RewardEmployeeListener extends Listener<RewardEvent> {
   readonly exchangeType = ExchangeTypes.Direct;
   protected retry: number = 0;
 
-  async onMessage(
-    data: { type: Reward },
-    channel: Channel,
-    msg: Message
-  ){
+  async onMessage(data: { type: Reward }, channel: Channel, msg: Message) {
     try {
       const date = getCurrDate();
       let employee: DayEmpObj | WeekEmpObj | MonthEmpObj;
@@ -44,8 +39,15 @@ export class RewardEmployeeListener extends Listener<RewardEvent> {
       } else {
         employee = await getEmpOfMonth(date);
       }
+      new WinnerEmployeePublisher(rabbitmq.client).publish(
+        {
+          type: data.type,
+          data: employee,
+        },
+        [Queue.Reward]
+      );
       channel.ack(msg);
-      console.log(`Reward ${data.type} Msg Processed Successfully in Task Srv`, employee);
+      console.log(`Reward ${data.type} Msg Processed Successfully in Task Srv`);
     } catch (error: any) {
       throw error;
     }

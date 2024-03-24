@@ -4,13 +4,16 @@
   "description": "1. npm init -y\r 2. yarn add typescript ts-node-dev express @types/express\r 3. tsc --init\r 4. \"start\" : \"ts-node-dev src/index.ts\"",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev src/index.ts"
+    "start": "ts-node-dev src/index.ts",
+    "test": "jest --no-cache --forceExit --detectOpenHandles --coverage --verbose",
+    "test:watch": "jest --watchAll --no-cache"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@reward-sys/common": "^1.0.58",
+    "@reward-sys/rabbitmq": "^1.0.16",
     "@types/cookie-session": "^2.0.48",
     "@types/express": "^4.17.21",
     "cookie-session": "^2.1.0",
